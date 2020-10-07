@@ -1,0 +1,116 @@
+
+/*
+Partie CSS du site
+*/
+
+/*
+Mettre le texte au milieu dans les tableau
+*/
+.table thead th
+{
+    vertical-align : middle;
+}
+
+.table td, .table th 
+{
+    vertical-align : middle;
+}
+
+/* 
+Mettre les champs de saisi des formulaires en rouge quand l\'utilisateur 
+clique sur les champs
+*/
+.form-control:focus
+{
+    border-color: red;
+    box-shadow: none;
+}
+
+/*
+Mettre la ligne de séparation des graphiques sur la page en rouge
+*/
+hr 
+{
+    border-top: 1px dashed red;
+}
+
+/*
+Mettre le fond en blanc pour le dropdown sur l\'en-tête du site quand l\'utilisateur 
+clique sur l\'un des liens. 
+(par défaut bootstrap met le fond en bleu)
+*/
+.dropdown-item:active
+{
+    background-color: #F8F8F8 !important;
+}
+
+/*
+Cacher la partie "billing other address" si la checkbox est cochée 
+(checkbox pour mettre la même adresse que la billing adresse)
+*/
+#billing_address
+{
+    display:none;
+}
+
+/*
+Mettre la largeur et longueur des graphiques
+*/
+#chart_pie_current_download, #specific_download_consumption, #specific_history_consumption, #chart_pie_previous_download, #chart_pie_current_upload, #chart_pie_previous_upload, #chart_pie_current_download_consumption
+{
+    width: 1000px; 
+    height: 500px;
+}
+
+/*
+Mettre les champs de saisi pour la partie google en rouge quand l\'utilisateur clique sur le champ
+(Exemple : champs de saisi sur la page d\'index) 
+*/
+.google-visualization-controls-stringfilter input:focus
+{
+    outline: none !important;
+    border:1px solid red !important;
+    border-radius: 4px;
+    padding:3%; 
+}
+
+/*
+Mettre les champs de saisi quand ils ne sont pas cliqués en gris claire 
+(Exemple : champs de saisi sur la page d\'index)
+*/
+.google-visualization-controls-stringfilter input
+{
+    outline: none !important;
+    border:1px solid lightgrey !important;
+    border-radius: 4px;
+    padding:3%;
+}
+
+/*
+Cacher l\'option "none" sur la dropdown "bandwidth plan"
+(Il est caché car il n\'est utilisé que quand l\'entreprise n\'a pas de bandwidths)
+*/
+#none
+{
+    display:none;
+}
+
+/*
+Mettre la bordure des tableaux en rouge quand les utilisateurs clique sur eux 
+*/
+[contenteditable]:focus 
+{
+    border: 1px solid red;
+    outline-style: solid;
+    outline-color: red;
+    outline-width: thin;
+}
+
+/*
+Cacher les id\'s des bandwidths types
+(pour ne pas afficher sur le tableau les id\'s des types de bandwidth)
+*/
+#id_bandwidths_type, #id_enterprise_category
+{
+    display: none;
+}
