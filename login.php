@@ -22,37 +22,9 @@ Les membres du groupe startups_read ne peuvent accéder au site qu'en lecture.
 Les membres du groupe startups_write peuvent accéder au site en écriture et lecture.
 */
 $oClient->SetCustomFilter('org=EPFL&group=startups_read');
+$oClient->Authenticate();
 
 
-$group  = $oClient->getValue('group');
-$sKey = $oClient->GetKey();
-
-echo <<<EOT
-<html>
-	<head>
-		<title>Test Tequila</title>
-	</head>
-	<body>
-		<h3>Test Tequila :</h3>
-		<pre>
-             group = $group
-             key = $sKey
-
-EOT;
-
-echo "\nCookies = ";
-print_r($_COOKIE);
-echo "\nSession = ";
-print_r($_SESSION);
-
-echo <<<EOT
-		</pre>
-		<p>
-		<a href="{$_SERVER['PHP_SELF']}">Test session key</a><br/>
-	</body>
-</html>
-
-EOT;
 //$oClient->SetCustomFilter('org=EPFL&group=startups_write');
 
 //Definir le nom du cookie par rapport au groupe où est l'utilisateur
@@ -71,6 +43,6 @@ else
 }*/
 
 //Faire appel à la page de login de tequila
-$oClient->Authenticate();
+
 
 ?>
