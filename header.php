@@ -14,6 +14,7 @@ echo '
         <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
         <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
         <link rel="stylesheet" type="text/css" href="css/style.css" />
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
         <title> Project Startups </title>
     </head>
     <body>
@@ -36,33 +37,8 @@ echo '
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">';
-                
-                    //Il affiche seulement le menu si l'utilisateur est connecté
-                    if(isset($_COOKIE['TequilaPHP']))
-                    {
-                        echo '
-                        <li class="nav-item dropdown">
-                            <a class="nav-link text-danger dropdown-toggle " id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Admin
-                            </a>
-                            <div class="dropdown-menu dropdown-warning" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item dropdown-item-danger text-danger" href="index.php">Download and Upload All Enterprises</a>
-                                <a class="dropdown-item text-danger" href="consumption_all_enterprises.php">Consumptions All Enterprises</a>
-                                <a class="dropdown-item text-danger" href="add_enterprise.php">Add Enterprises</a>
-                                <a class="dropdown-item text-danger" href="add_bandwidths_type.php">Add Bandwidths Types</a>
-                                <a class="dropdown-item text-danger" href="add_change_enterprise_category.php">Add and Change Enterprise Category</a>
-                                <a class="dropdown-item text-danger" href="bandwidth_pack_extra_quota_changes.php?band=actif&pack=actif">Change bandwidth and pack extra quota</a>
-                                <a class="dropdown-item text-danger" href="limit_messages_changes.php">Change Warnings messages and limits</a>          
-                            </div>
-                        </li>';
-                    }
-                    echo '
-                </ul>
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">';
-
                     /*
                     Si l'utilisateur est connecté, sur l'en-tête il y a le lien de logout
                     Si l'utilisateur est deconnecté, sur l'en-tête il y a le lien de login 
@@ -81,8 +57,14 @@ echo '
                     </li>
                 </ul>
             </div>
-        </nav>
-     
-';
+        </nav>';
+    
+        function security_text($data)
+        {
+            $data = trim($data);
+            $data = stripslashes($data);
+            $data = htmlspecialchars($data);
+            return $data;
+        }
 
 ?>
