@@ -114,3 +114,17 @@ Cacher les id\'s des bandwidths types
 {
     display: none;
 }
+
+/*
+Cacher les flèches quand le type de champ est numérique
+*/
+input[type='number'] 
+{
+    -moz-appearance:textfield;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button 
+{
+    -webkit-appearance: none;
+}
