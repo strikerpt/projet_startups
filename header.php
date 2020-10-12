@@ -59,6 +59,7 @@ echo '
             </div>
         </nav>';
     
+        //Fonction pour empêcher les attaques XSS et injections SQL
         function security_text($data)
         {
             $data = trim($data);
