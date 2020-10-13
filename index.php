@@ -166,12 +166,12 @@ echo "
                 if(id_cell == 0 || id_cell == 1 || id_cell == 2 || id_cell == 3)
                 {
                     var str = tableDataView.getFormattedValue(selectedRow, 0);
-                    window.location.href = 'http://itsidevfsd0008.xaas.epfl.ch/company_information_modification?company_name='+str;
+                    window.location.href = 'http://itsidevfsd0008.xaas.epfl.ch/company_information_modification.php?company_name='+str;
                 }
                 else if (id_cell == 4 || id_cell == 5)
                 {
                     var str = tableDataView.getFormattedValue(selectedRow, 0);
-                    window.location.href = 'http://itsidevfsd0008.xaas.epfl.ch/company_information_modification?company_name='+str;
+                    window.location.href = 'http://itsidevfsd0008.xaas.epfl.ch/company_information_modification.php?company_name='+str;
                 }   
             }
           
