@@ -91,7 +91,7 @@ if(isset($_GET['company_name']))
                 <label for="type" class="col-sm-3 col-form-label">Type</label>
                 <div class="col-sm-6">
                     <select class="form-control" class="selectpicker" data-dropup-auto="true" name="type" id="type" required>
-                        <option name="none" value="NULL">None</option>';
+                        <option name="none" value="None">None</option>';
                         
                         //Récupérer le type de la startup et l'afficher sur la combobox, mais afficher les autres possibilités si l'utilisateur veut changer le type de la startup
                         $type_data_startups = $db-> query('SELECT type FROM type INNER JOIN startup ON type.id_type = startup.fk_type WHERE company = "'.$startup_name.'"');
@@ -312,13 +312,26 @@ if(isset($_GET['company_name']))
             <div class="form-group row">
                 <label for="description" class="col-sm-3 col-form-label">Short description</label>
                 <div class="col-sm-6">
-                <input type="text" class="form-control" value="'.$startup_data['description'].'" name="description" id="description" pattern="[A-Za-z0-9[\(-\+éöïçàäèüãáñâôé,()\.@#\+&=!$£?\'\/<>:;^`~\|*_\] ]{2,500}" title="Letters and Numbers are accepted. Minimum 2 characters and maximum 500. The special characters accepted are : &quot; (-+éöïçàäèüãáñâôé,().@#+&=!$£?\'/<>:;^`~|*_ &quot;">
+                    <input type="text" class="form-control" value="'.$startup_data['description'].'" name="description" id="description" pattern="[A-Za-z0-9[\(-\+éöïçàäèüãáñâôé,()\.@#\+&=!$£?\'\/<>:;^`~\|*_\] ]{2,500}" title="Letters and Numbers are accepted. Minimum 2 characters and maximum 500. The special characters accepted are : &quot; (-+éöïçàäèüãáñâôé,().@#+&=!$£?\'/<>:;^`~|*_ &quot;">
                 </div>
             </div>
-            <button class="btn btn-outline-secondary mt-5" id="submit_changes_company" onclick="after_click()" name="submit_changes_company" type="submit">Submit</button>
+            <div class ="form-group row col-12">
+                <button class="btn btn-outline-secondary mt-5 mr-5" id="submit_changes_company" onclick="after_click()" name="submit_changes_company" type="submit">Change</button>
+                <button class="btn btn-outline-secondary mt-5 mx-auto" id="submit_delete_company" onclick="company_delete()" name="submit_delete_company" type="button">DELETE</button>
+            </div>
         </form>
     </div>
     <script>
+    
+        //Récupérer la valeur du champ "exit year" pour savoir si l\'entreprise a déjà une date de fin
+        var delete_company = document.getElementById("exit_year").value;
+
+        //Si l\'entreprise a une date de fin, alors je désactive le button "Delete"
+        if(delete_company != "")
+        {
+            document.getElementById("submit_delete_company").disabled = true;
+        }
+        
         //Mettre dans des variables les valeurs des comboboxes
         var status = document.getElementById("status").value;
         var type = document.getElementById("type").value;
@@ -328,13 +341,11 @@ if(isset($_GET['company_name']))
         les messages avant le clique et après le clique.
         Variable "get" est le paramètre qui est passé sur l\'url
         Variable filename est le nom du fichier nécessaire pour traiter les 2 variables mencionnées avant
-        Variable "message" est le message de fin quand l\'écriture sur la base de données a été finalisée
         
         Ces variables sont utilisées sur le fichier "functions_changes.php" */
         var arr = ["company_name", "founding_year", "web", "rc", "status", "exit_year", "time_to_exit", "type", "capital", "innogrant", "prix_pre_seed", "impact", "sector", "key_words", "ba_ma_phd_epfl", "founders_origin", "founders_country", "name", "firstname", "function1", "email", "email1", "linkedin", "name2","firstname2", "function2", "gender_female_ratio", "gender_female_number","fac_dpt", "laboratory", "prof","investment_2020", "investor_2020", "description"];
         var get = "'.$_GET['company_name'].'";
-        var filename = "company_information_modification.php";
-        var message = "The data of the startup was changed.";
+        var filename = "company_information_modification_db.php";
         ';
 
         //Importer le fichier nécessaire pour traiter les variables ci-dessus
