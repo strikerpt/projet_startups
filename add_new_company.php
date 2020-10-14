@@ -73,7 +73,7 @@ echo '
             <div class="col-sm-6">
                 <select class="form-control" class="selectpicker" data-dropup-auto="true" name="type" id="type" required>
                     <option name="default" value="default" disabled selected>Select a type</option>
-                    <option name="none" value="NULL">None</option>';
+                    <option name="none" value="None">None</option>';
                     $type_data = $db-> query('SELECT type FROM type');
                     $data_type = $type_data -> fetchAll();
                     foreach ($data_type as $type)
@@ -153,28 +153,28 @@ echo '
         <div class="form-group row">
             <label for="founders_country" class="col-sm-3 col-form-label">Founders Country</label>
             <div class="col-sm-6">
-            <input type="text" class="form-control" name="founders_country" id="founders_country" pattern="[A-Za-z[\-\/\] ]{2,300}" title="Only letters allowed. Minimum 2 characters and maximum 300. Special characters allowed are $quot; -/ $quot;">
+            <input type="text" class="form-control" name="founders_country" id="founders_country" pattern="[A-Za-z[\-\/\] ]{2,300}" title="Only letters allowed. Minimum 2 characters and maximum 300. Special characters allowed are &quot; -/ &quot;">
             </div>
         </div>
         <!-- Champ pour le nom des fondateurs de la startup -->
         <div class="form-group row">
             <label for="name" class="col-sm-3 col-form-label">Name</label>
             <div class="col-sm-6">
-            <input type="text" class="form-control" name="name" id="name" pattern="[A-Za-z[\-\] ]{2,30}" title="Only letters allowed. Minimum 2 characters and maximum 30. Special characters allowed are $quot; -/ $quot;">
+            <input type="text" class="form-control" name="name" id="name" pattern="[A-Za-z[\-\] ]{2,30}" title="Only letters allowed. Minimum 2 characters and maximum 30. Special characters allowed are &quot; -/ &quot;">
             </div>
         </div>
         <!-- Champ pour le prénom des fondateurs de la startup -->
         <div class="form-group row">
             <label for="firstname" class="col-sm-3 col-form-label">Firstname</label>
             <div class="col-sm-6">
-            <input type="text" class="form-control" name="firstname" id="firstname" pattern="[A-Za-z[\-\] ]{2,30}" title="Only letters allowed. Minimum 2 characters and maximum 30. Special characters allowed are $quot; - $quot;">
+            <input type="text" class="form-control" name="firstname" id="firstname" pattern="[A-Za-z[\-\] ]{2,30}" title="Only letters allowed. Minimum 2 characters and maximum 30. Special characters allowed are &quot; - &quot;">
             </div>
         </div>
         <!-- Champ pour la fonction des fondateurs de la startup -->
         <div class="form-group row">
             <label for="function1" class="col-sm-3 col-form-label">Function</label>
             <div class="col-sm-6">
-            <input type="text" class="form-control" name="function1" id="function1" pattern="[A-Za-z[\-\/&\] ]{2,30}" title="Only letters allowed. Minimum 2 characters and maximum 30. Special characters allowed are $quot; -/& $quot;">
+            <input type="text" class="form-control" name="function1" id="function1" pattern="[A-Za-z[\-\/&\] ]{2,30}" title="Only letters allowed. Minimum 2 characters and maximum 30. Special characters allowed are &quot; -/& &quot;">
             </div>
         </div>
         <!-- Champ pour email-->
@@ -202,56 +202,56 @@ echo '
         <div class="form-group row">
             <label for="name2" class="col-sm-3 col-form-label">Name2</label>
             <div class="col-sm-6">
-            <input type="text" class="form-control" name="name2" id="name2" pattern="[A-Za-z[\-\] ]{2,100}" title="Only letters allowed. Minimum 2 characters and maximum 100. Special characters allowed are $quot; - $quot;">
+            <input type="text" class="form-control" name="name2" id="name2" pattern="[A-Za-z[\-\] ]{2,100}" title="Only letters allowed. Minimum 2 characters and maximum 100. Special characters allowed are &quot; - &quot;">
             </div>
         </div>
         <!-- Champ pour le deuxième prénom-->
         <div class="form-group row">
             <label for="firstname2" class="col-sm-3 col-form-label">Firstname2</label>
             <div class="col-sm-6">
-            <input type="text" class="form-control" name="firstname2" id="firstname2" pattern="[A-Za-z[\-\] ]{2,30}" title="Only letters allowed. Minimum 2 characters and maximum 30. Special characters allowed are $quot; - $quot;">
+            <input type="text" class="form-control" name="firstname2" id="firstname2" pattern="[A-Za-z[\-\] ]{2,30}" title="Only letters allowed. Minimum 2 characters and maximum 30. Special characters allowed are &quot; - &quot;">
             </div>
         </div>
         <!-- Champ pour autres fonctions-->
         <div class="form-group row">
             <label for="function2" class="col-sm-3 col-form-label">Function2</label>
             <div class="col-sm-6">
-            <input type="text" class="form-control" name="function2" id="function2" pattern="[A-Za-z[\-\] ]{2,100}" title="Only letters allowed. Minimum 2 characters and maximum 100. Special characters allowed are $quot; - $quot;">
+            <input type="text" class="form-control" name="function2" id="function2" pattern="[A-Za-z[\-\] ]{2,100}" title="Only letters allowed. Minimum 2 characters and maximum 100. Special characters allowed are &quot; - &quot;">
             </div>
         </div>
         <!-- Champ pour le ratio de femmes/hommes dans la startup-->
         <div class="form-group row">
             <label for="gender_female_ratio" class="col-sm-3 col-form-label">Gender female Ratio</label>
             <div class="col-sm-6">
-            <input type="text" class="form-control" name="gender_female_ratio" id="gender_female_ratio" pattern="[0-9[\/%\] ]{2,20}" title="Only numbers allowed. Minimum 2 characters and maximum 20. Special characters allowed are $quot; /% $quot;" required>
+            <input type="text" class="form-control" name="gender_female_ratio" id="gender_female_ratio" pattern="[0-9[\/%\] ]{1,20}" title="Only numbers allowed. Minimum 1 characters and maximum 20. Special characters allowed are &quot; /% &quot;" required>
             </div>
         </div>
         <!-- Champ pour le nombre de femmes dans la startup-->
         <div class="form-group row">
             <label for="gender_female_number" class="col-sm-3 col-form-label">Gender female number</label>
             <div class="col-sm-6">
-            <input type="number" class="form-control" name="gender_female_number" id="gender_female_number" pattern="[0-9]{2,20}" title="Only numbers allowed. Minimum 2 characters and maximum 20." required>
+            <input type="number" class="form-control" name="gender_female_number" id="gender_female_number" pattern="[0-9]{1,20}" title="Only numbers allowed. Minimum 1 characters and maximum 20." required>
             </div>
         </div>
         <!-- Champ pour la faculté ou département où appartient la startup-->
         <div class="form-group row">
             <label for="fac_dpt" class="col-sm-3 col-form-label">fac / dpt</label>
             <div class="col-sm-6">
-            <input type="text" class="form-control" name="fac_dpt" id="fac_dpt" pattern="[a-zA-Z[()\/\] ]{2,30}" title="Only letters allowed. Minimum 2 characters and maximum 30. Special characters allowed are $quot; ()/ $quot;">
+            <input type="text" class="form-control" name="fac_dpt" id="fac_dpt" pattern="[a-zA-Z[()\/\] ]{2,30}" title="Only letters allowed. Minimum 2 characters and maximum 30. Special characters allowed are &quot; ()/ &quot;">
             </div>
         </div>
         <!-- Champ pour le nom du laboratoire-->
         <div class="form-group row">
             <label for="laboratory" class="col-sm-3 col-form-label">Laboratory</label>
             <div class="col-sm-6">
-            <input type="text" class="form-control" name="laboratory" id="laboratory" pattern="[a-zA-Z[()\/\] ]{2,100}" title="Only letters allowed. Minimum 2 characters and maximum 100. Special characters allowed are $quot; ()/ $quot;">
+            <input type="text" class="form-control" name="laboratory" id="laboratory" pattern="[a-zA-Z[()\/\] ]{2,100}" title="Only letters allowed. Minimum 2 characters and maximum 100. Special characters allowed are &quot; ()/ &quot;">
             </div>
         </div>
         <!-- Champ pour le nom du prof-->
         <div class="form-group row">
             <label for="prof" class="col-sm-3 col-form-label">Prof</label>
             <div class="col-sm-6">
-            <input type="text" class="form-control" name="prof" id="prof" pattern="[a-zA-Z ]{2,100}" title="Only letters allowed. Minimum 2 characters and maximum 100.">
+            <input type="text" class="form-control" name="prof" id="prof" pattern="[a-zA-Z[\.\] ]{2,100}" title="Only letters allowed. Minimum 2 characters and maximum 100. Special characters allowed are &quot; . &quot;">
             </div>
         </div>
         <!-- Champ pour le s\'il y a eu des investissement en 2020-->

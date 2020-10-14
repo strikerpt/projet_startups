@@ -166,12 +166,12 @@ echo "
                 if(id_cell == 0 || id_cell == 1 || id_cell == 2 || id_cell == 3)
                 {
                     var str = tableDataView.getFormattedValue(selectedRow, 0);
-                    window.location.href = 'http://itsidevfsd0008.xaas.epfl.ch/company_information_modification?company_name='+str;
+                    window.location.href = 'http://itsidevfsd0008.xaas.epfl.ch/company_information_modification.php?company_name='+str;
                 }
                 else if (id_cell == 4 || id_cell == 5)
                 {
                     var str = tableDataView.getFormattedValue(selectedRow, 0);
-                    window.location.href = 'http://itsidevfsd0008.xaas.epfl.ch/company_information_modification?company_name='+str;
+                    window.location.href = 'http://itsidevfsd0008.xaas.epfl.ch/company_information_modification.php?company_name='+str;
                 }   
             }
           
@@ -180,6 +180,16 @@ echo "
         //Partie pour télécharger les données du tableau en format CSV
         $('.csv-button').on('click', function () 
         {
+            //Fonction pour avoir la date du jour avec le format dd_mm_yyyy
+            function GetFormattedDate() 
+            {
+                var today = new Date();
+                var day = String(today.getDate()).padStart(2, '0');
+                var month = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+                var year = today.getFullYear();
+                return day + '_' + month + '_' + year;
+            }
+
             var csvColumns;
             var csvContent;
             var downloadLink;
@@ -196,11 +206,11 @@ echo "
             }
             csvColumns += '\\n';
         
-            //Récupérer les données pour les mettre dans le fichier
+            //Récupérer les données pour les mettre dans le fichier et le télécharger en mettant la date du jour sur le nom du téléchangement
             csvContent = csvColumns + google.visualization.dataTableToCsv(data);
             downloadLink = document.createElement('a');
             downloadLink.href = 'data:text/csv;charset=utf-8,' + encodeURI(csvContent);
-            downloadLink.download = 'startups.csv';
+            downloadLink.download = 'startups_'+GetFormattedDate()+'.csv';
             downloadLink.click();
             downloadLink = null;
 
@@ -214,7 +224,7 @@ echo "
 
 <!-- Partie HTML pour placer les checkboxes, les champs filtres, le tableau et le bouton de téléchargement du fichier CSV -->
 <div class='container'>
-    <h5 class='font-weight-bold'> Homepage : Companies List </h5>
+    <h5 class='font-weight-bold'> Homepage: Companies List </h5>
     <div id='dashboard_div'>
         <div class='row'>
             <div id='search_company' class='text-left col-3 my-5 '></div>
