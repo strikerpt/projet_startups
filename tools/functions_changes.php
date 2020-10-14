@@ -14,12 +14,11 @@ Fonction "compare" qui sert à comparer les données d\'avant et d\'après sont
 différents, si c\'est le cas, un pop-up de confirmation va afficher les changements et 
 demander si l\'utilisateur est d\'accord ou pas de poursuivre.
 
-Cette fonction sert aussi à porter les paramètres "filename", "message" et "get".
+Cette fonction sert aussi à porter les paramètres "filename" et "get".
 "filename" est le nom du fichier php qui contient les requetes pour écrire dans la base de données
-"message" est le message de fin qui est afficher sous forme de pop-up d\'alerte
 "get" est la valeur qui est sur l\'url (normalement est un nom d\'entreprise ou d\'un titre template  
 */
-function compare(arr_before, arr_after, filename, message, get)
+function compare(arr_before, arr_after, filename, get)
 {
     for (let i = 0; i < arr_before.length; i++) 
     {   
@@ -31,7 +30,10 @@ function compare(arr_before, arr_after, filename, message, get)
             var str_replaced_after = arr_after[i][1].replace(/<[^>]*>/g, "");
 
             //Pop-up de confirmation où sont affichés les changements
-            var resultat = window.confirm(\'The changes are :\\n\\nBEFORE :\\n \\n\'+str_replaced_before+\'\\n\\nAFTER :\\n \\n\'+str_replaced_after+\'\\n\');
+            var resultat = window.confirm(\'BEFORE :\\n \\n\'+str_replaced_before+\'\\n\\nAFTER :\\n \\n\'+str_replaced_after+\'\\n\');
+
+            //Passer en paramètre que c\'est un changement
+            var change_company = "true";
             
             //Si l\'utilisateur est d\'accord avec les changements (si oui = true)
             if (resultat == true)
@@ -47,14 +49,15 @@ function compare(arr_before, arr_after, filename, message, get)
                     {
                         get : get,
                         name_field : arr_before[i][0],
-                        changed_field : arr_after[i][1]
+                        changed_field : arr_after[i][1],
+                        change_company : change_company
                     },
 
-                    /*Si tout est bien se passé, il affiche un pop-up, en disant que les changements
+                    /*Si tout est bien, il affiche un pop-up, en disant que les changements
                     ont été faits et il rafraîchit la page pour montrer à l\'utilisateur les changements*/
                     success:function(data)
                     {
-                        alert(message);
+                        alert("The "+arr_before[i][0]+" was changed");
                         setTimeout(function()
                         {
                             window.location.reload(1);
@@ -72,9 +75,9 @@ function compare(arr_before, arr_after, filename, message, get)
 function after_click()
 {
     /*Mettre les données dans le tableau after et appeler la fonction compare en donnant
-    les tableaux, le nom du fichier, le message de fin et le paramètre qui est dans l\'url*/
+    les tableaux, le nom du fichier et le paramètre qui est dans l\'url*/
     arr_after = read(arr);
-    compare(arr_before, arr_after, filename, message, get);
+    compare(arr_before, arr_after, filename, get);
 }
 
 
@@ -99,6 +102,60 @@ function read(arr)
     //Faire un return du tableau pour l\'utiliser ailleurs de la fonction
     return arr_read; 
     
-}';
+}
+
+//Fonction pour mettre un exit year dans la base de données pour la startup
+function company_delete()
+{
+    //Fonction pour avoir l\'année courante
+    function GetDateYear() 
+    {
+        var today = new Date();
+        var year = today.getFullYear();
+        return year;
+    }
+    
+    //Récupérer la date du jour
+    var year_date = GetDateYear();
+
+    //Passer en paramètre que c\'est un effacement
+    var delete_startup = "true";
+
+    //Pop-up de confirmation où il demande à l\'utilisateur s\'il veut vraiment effacer la startup
+    var resultat = window.confirm("Do you really want to erase the company?");
+    
+    //Si l\'utilisateur est d\'accord avec les changements (si oui = true)
+    if (resultat == true)
+    {
+        //Ecriture des changements dans la base de données
+        $.ajax
+        ({  
+            //Chemin vers la page qui contient les requêtes SQL
+            url:"tools/company_information_modification_db.php",
+            method:"POST",
+            dataType:"text",
+            data: 
+            {
+                delete_startup : delete_startup,
+                get : get,
+                year_date : year_date,
+            },
+
+            /*Si tout est bien, il affiche un pop-up, en disant que les changements
+            ont été faits et il rafraîchit la page pour montrer à l\'utilisateur les changements*/
+            success:function(data)
+            {
+                alert("The startup was erased");
+                setTimeout(function()
+                {
+                    window.location.reload(1);
+                }, 0);
+            }
+        });
+    }         
+}
+
+
+';
 
 ?>
