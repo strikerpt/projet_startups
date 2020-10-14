@@ -73,7 +73,7 @@ echo '
             <div class="col-sm-6">
                 <select class="form-control" class="selectpicker" data-dropup-auto="true" name="type" id="type" required>
                     <option name="default" value="default" disabled selected>Select a type</option>
-                    <option name="none" value="NULL">None</option>';
+                    <option name="none" value="None">None</option>';
                     $type_data = $db-> query('SELECT type FROM type');
                     $data_type = $type_data -> fetchAll();
                     foreach ($data_type as $type)
