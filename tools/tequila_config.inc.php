@@ -2,7 +2,7 @@
 $aConfig = array (
 	          'sServer' => 'https://tequila.epfl.ch',
 	          'iTimeout' => 86400,
-			  'logoutUrl' => "http://itsidevfsd0008.xaas.epfl.ch/",
+			  'logoutUrl' => "https://itsidevfsd0008.xaas.epfl.ch/",
 	);
 
 
