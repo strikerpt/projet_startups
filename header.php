@@ -1,6 +1,6 @@
 <?php
 
-//Initialiser les modules nécessaires pour le site (bootstrap, jquery, summernote, ajax)
+//Initialiser les modules nécessaires pour le site (bootstrap, jquery, ajax, google charts)
 echo '
 <!DOCTYPE html>
     <html>
@@ -11,8 +11,6 @@ echo '
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-        <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
-        <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
         <link rel="stylesheet" type="text/css" href="css/style.css" />
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
         <title> Project Startups </title>
@@ -20,8 +18,8 @@ echo '
     <body>
         <script>
             /*
-            Script qui empêche l\historique sur les pages. 
-            Surtout utilisé pour les formulaires, si l\'utilisateur rafraichi la page, il ne soumet pas les données
+                Script qui empêche l\historique sur les pages. 
+                Surtout utilisé pour les formulaires, si l\'utilisateur rafraichi la page, il ne soumet pas les données
             */
             if ( window.history.replaceState ) 
             {
@@ -37,6 +35,32 @@ echo '
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav">';
+                    //Il affiche seulement le menu si l'utilisateur est connecté
+                    if(isset($_COOKIE['TequilaPHP']))
+                    {
+                        //Il affiche le menu qui concerne aux utilisateurs qui ont le droit d'écrire
+                        if(isset($_COOKIE['TequilaPHPWrite']))
+                        {
+                            /*
+                                Menu déroulant avec les pages du site. 
+                                Il n'y pas la page de modifications des données car cette page doit être seulement accéssible si l'utilisateur clique sur une startup, 
+                                vu que les données sont seulement affichées s'il y a le nom de la startup en paramètre dans l'url.
+                            */
+                            echo '
+                            <li class="nav-item dropdown">
+                                <a class="nav-link text-danger dropdown-toggle " id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Pages </a>
+                                <div class="dropdown-menu dropdown-warning" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item dropdown-item-danger text-danger" href="index.php">Homepage</a>
+                                    <a class="dropdown-item text-danger" href="add_new_company.php">Add New Company</a>
+                                    <a class="dropdown-item text-danger" href="import_from_csv.php">Import CSV</a>
+                                </div>
+                            </li>';
+                        }  
+                    }
+                    echo '
+                </ul>
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">';
                     /*
