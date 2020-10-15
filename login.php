@@ -1,4 +1,5 @@
 <?php
+
 require_once("tools/tequila.php");
 
 $oClient = new TequilaClient();
@@ -11,38 +12,31 @@ $oClient->SetWantedAttributes(array('uniqueid','name','firstname','unit', 'uniti
 $oClient->SetWishedAttributes(array('email', 'title'));
 
 //URL de redirection quand le login est bien fait
-$oClient->SetApplicationURL('http://itsidevfsd0008.xaas.epfl.ch/');
+//$oClient->SetApplicationURL('https://itsidevfsd0008.xaas.epfl.ch/');
+
+//Utilisateurs doivent être dans EPFL et être dans le groupe startups_read ou startups_write (permet de gérer les droits suivant l'utilsateur)
+$oClient->SetCustomFilter('org=EPFL&group=startups_read|group=startups_write');
 
 //1 jour de cookie
 $oClient->SetTimeout('86400');
 
-/*
-Groupes qui peuvent accéder au site. 
-Les membres du groupe startups_read ne peuvent accéder au site qu'en lecture.
-Les membres du groupe startups_write peuvent accéder au site en écriture et lecture.
-*/
-$oClient->SetCustomFilter('org=EPFL&group=startups_read');
+//Appeler la fenêtre d'authentication de Tequila
 $oClient->Authenticate();
 
+//Récupérer tous les groups où est l'utilisateur
+$group  = $oClient->getValue('group');
 
-//$oClient->SetCustomFilter('org=EPFL&group=startups_write');
-
-//Definir le nom du cookie par rapport au groupe où est l'utilisateur
-/*$cookie_name  = $oClient->getValue('group');
-if($cookie_name == "startups_read")
+//Permet de savoir si parmis les groupes où l'utilisateur est insérer, il est dans startups_read ou startups_write
+$word = "startups_write";
+if(strpos($group, $word) !== false)
 {
-    $sCookieName = "TequilaPHPRead";
-}
-elseif($cookie_name == "startups_write")
-{
-    $sCookieName = "TequilaPHPWrite";
+    setcookie('TequilaPHPWrite', 'TequilaPHPWrite', time()+86400);
+    header('Location: https://itsidevfsd0008.xaas.epfl.ch/');	 
 }
 else
 {
-    $sCookieName = "ERROR";
-}*/
-
-//Faire appel à la page de login de tequila
-
+    setcookie('TequilaPHPRead', 'TequilaPHPRead', time()+86400);
+    header('Location: https://itsidevfsd0008.xaas.epfl.ch/');
+}
 
 ?>
