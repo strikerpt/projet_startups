@@ -30,12 +30,18 @@ $group  = $oClient->getValue('group');
 $word = "startups_write";
 if(strpos($group, $word) !== false)
 {
-    setcookie('TequilaPHPWrite', 'TequilaPHPWrite', time()+86400);
+    //Initialiser une variable session pour les utilisateurs read
+    $_SESSION['TequilaPHPWrite'] = "TequilaPHPWritetrue";
+    
+    //Redirection vers la page d'acceuil pour finalisé la connexion à Tequila
     header('Location: https://itsidevfsd0008.xaas.epfl.ch/');	 
 }
 else
 {
-    setcookie('TequilaPHPRead', 'TequilaPHPRead', time()+86400);
+    //Initialiser une variable session pour les utilisateurs read
+    $_SESSION['TequilaPHPRead'] = "TequilaPHPReadtrue";
+    
+    //Redirection vers la page d'acceuil pour finalisé la connexion à Tequila
     header('Location: https://itsidevfsd0008.xaas.epfl.ch/');
 }
 
