@@ -2,7 +2,7 @@
 
 require 'header.php';
 
-if(isset($_COOKIE['TequilaPHP']))
+if(isset($_SESSION['user']))
 {
     echo "
 
@@ -239,6 +239,6 @@ if(isset($_COOKIE['TequilaPHP']))
         
     </div>";
 
-    require 'footer.php';    
+    require 'footer.php';
 }
 ?>

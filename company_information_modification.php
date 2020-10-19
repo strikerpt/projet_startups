@@ -3,9 +3,9 @@
 require 'header.php';
 require 'tools/connection_db.php';
 
-if(isset($_COOKIE['TequilaPHP']))
+if(isset($_SESSION['user']))
 {
-    if(isset($_COOKIE['TequilaPHPWrite']))
+    if($_SESSION['TequilaPHPWrite'] == "TequilaPHPWritetrue")
     {
         if(isset($_GET['company_name']))
         {
@@ -324,23 +324,7 @@ if(isset($_COOKIE['TequilaPHP']))
                         <button class="btn btn-outline-secondary mt-5 mx-auto" id="submit_delete_company" onclick="company_delete()" name="submit_delete_company" type="button">DELETE</button>
                     </div>
                 </form>
-            </div>';
-            if(isset($_COOKIE['TequilaPHPRead']))
-            {
-                echo "
-                <script>
-                    alert('You don\'t have the rights to modify this page. You have only the right of read');
-                
-                    var form = document.getElementById('form_change_startup');
-                    var elements = form.elements;
-                    for (var i = 0, len = elements.length; i < len; ++i) 
-                    {
-                        elements[i].disabled = true;
-                    }
-                </script>
-                ";
-            }
-            echo '
+            </div>
             <script>
                 //Récupérer la valeur du champ "exit year" pour savoir si l\'entreprise a déjà une date de fin
                 var delete_company = document.getElementById("exit_year").value;
@@ -380,12 +364,20 @@ if(isset($_COOKIE['TequilaPHP']))
         require 'tools/disconnection_db.php';
         require 'footer.php';
     }
+    elseif($_SESSION['TequilaPHPRead'] == "TequilaPHPReadtrue")
+    {
+        echo "
+        <script>
+            alert('You don\'t have enough rights to access this page.');
+            window.location.replace('https://itsidevfsd0008.xaas.epfl.ch/');
+        </script>";
+    }
 }
 else
 {
     echo "
     <script>
-        alert('You have to be connected to see the homepage.');
+        alert('You must be connected to see this page.');
         window.location.replace('https://itsidevfsd0008.xaas.epfl.ch/');
     </script>
     ";

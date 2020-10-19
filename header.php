@@ -1,11 +1,13 @@
 <?php
 
-//Initialiser les modules nécessaires pour le site (bootstrap, jquery, ajax, google charts)
+session_start();
+
+//Initialiser les modules nécessaires pour le site (bootstrap, ajax, google charts)
 echo '
 <!DOCTYPE html>
     <html>
     <head>
-        <meta charset=UTF-8">
+        <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -38,10 +40,10 @@ echo '
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav">';
                     //Il affiche seulement le menu si l'utilisateur est connecté
-                    if(isset($_COOKIE['TequilaPHP']))
+                    if(isset($_SESSION['user']))
                     {
                         //Il affiche le menu qui concerne aux utilisateurs qui ont le droit d'écrire
-                        if(isset($_COOKIE['TequilaPHPWrite']))
+                        if($_SESSION['TequilaPHPWrite'] == "TequilaPHPWritetrue")
                         {
                             /*
                                 Menu déroulant avec les pages du site. 
@@ -67,7 +69,7 @@ echo '
                     Si l'utilisateur est connecté, sur l'en-tête il y a le lien de logout
                     Si l'utilisateur est deconnecté, sur l'en-tête il y a le lien de login 
                     */
-                    if(isset($_COOKIE['TequilaPHP']))
+                    if(isset($_SESSION['user']))
                     {
                         echo '
                         <a class="nav-link text-danger" href="logout.php">Logout</a>';
