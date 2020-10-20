@@ -38,7 +38,7 @@ echo '
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav">';
+                <ul class="navbar-nav mx-auto">';
                     //Il affiche seulement le menu si l'utilisateur est connecté
                     if(isset($_SESSION['user']))
                     {
@@ -63,7 +63,7 @@ echo '
                     }
                     echo '
                 </ul>
-                <ul class="navbar-nav ml-auto">
+                <ul class="navbar-nav text-right">
                     <li class="nav-item">';
                     /*
                     Si l'utilisateur est connecté, sur l'en-tête il y a le lien de logout
