@@ -1,11 +1,14 @@
 #!/bin/bash
 
 # Backup des fichiers du site et de la base de données
+
 # Extraction du backup sur linux
 # tar -zxvf  ~/backup_site/backup_site__(date).tar.gz
 
 # Récupérer le backup de la base de données
-# mysql -u vpi_startup_mgmt -h mysql-scx.epfl.ch -P 33001 -p < backup_db_(date).sql
+# mysql -u vpi_startup_mgmt -h mysql-scx.epfl.ch -P 33001 --password="$SECRET" < ~/backup_site/backup_db_16_10_2020.sql
+
+####################################################################################################################
 
 # Mettre à jour les variables d'environnement du système
 source /etc/profile 
