@@ -73,3 +73,20 @@ input::-webkit-inner-spin-button
 {
     -webkit-appearance: none;
 }
+
+/*
+Bloquer l'hauteur et longueur du bouton "download to CSV" 
+*/
+#button-csv
+{
+    width : 50% !important;
+    height : 70% !important;
+}
+
+/*
+Changement de couleur des filtres "status" et "sectors" de la page d'accueil
+*/
+.google-visualization-controls-categoryfilter li 
+{
+    background-color:lightgrey !important;
+}
