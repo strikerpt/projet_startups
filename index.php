@@ -26,13 +26,11 @@ if(isset($_SESSION['user']))
                 success:function(data)
                 {
                     drawChart_companies_data(data);
-                    console.log('sucess');
                 },
                 //En revanche, s'il y a eu problème ou s'il n'y a aucune donnée, il ne met rien sur le tableau
                 error:function (data) 
                 {
                     drawChart_companies_data();
-                    console.log('error');
                 }
             });
         }
@@ -101,7 +99,9 @@ if(isset($_SESSION['user']))
                         label: '',
                         placeholder : 'status',
                         selectedValuesLayout : 'below',
-                        'caption': 'Choose a Status',
+                        'caption': 'All Status',
+                        allowTyping: false,
+                        allowMultiple: true,
                     }, 
                     'filterColumnLabel': 'status',
 
@@ -119,7 +119,9 @@ if(isset($_SESSION['user']))
                         label: '',
                         placeholder : 'sectors',
                         selectedValuesLayout : 'below',
-                        'caption': 'Choose a Sector',
+                        'caption': 'All Sectors',
+                        allowTyping: false,
+                        allowMultiple: true,
                     }, 
                     'filterColumnLabel': 'sectors',
 
@@ -230,13 +232,12 @@ if(isset($_SESSION['user']))
         <div id='dashboard_div'>
             <div class='row'>
                 <div id='search_company' class='text-left col-3 my-5 '></div>
-                <div id='status_dropdown_menu' class='text-right col-3 my-5 '></div>
-                <div id='sectors_dropdown_menu' class='text-right col-3 my-5 '></div>
-                <button id='button-csv' class='csv-button btn btn-sm btn-outline-secondary col-3 my-5'>Download to CSV file</button>
-                <div id='table' class='col-12'></div>
+                <div id='status_dropdown_menu' class='text-center col-3 my-5 '></div>
+                <div id='sectors_dropdown_menu' class='text-center col-3 my-5 '></div>
+                <button id='button-csv' class='csv-button btn btn-outline-secondary col-2 my-5 ml-auto'>Download to CSV file</button>
+                <div id='table' class='col-12 pr-0'></div>
             </div>
         </div>
-        
     </div>";
 
     require 'footer.php';
