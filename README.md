@@ -50,7 +50,7 @@
 <h3> tools/ </h3>
 
 <p> Contient les fichiers avec les requêtes SQL pour écrire ou lire dans la base de données ou pour récuperer des données dans la base de données (nécessaire pour la page d'accueil du site). Les fichiers de configuration de Tequila. Les fichiers de connexion et déconnexion à la base de données. Le script de backup des fichiers du serveur et de la base de données.</p> 
-<p>Le script fait des "full backups" tous les jours ouvrables et dans les commentaires du script, il y a les commandes à lancer pour utiliser ces backups en cas de besoin.</p>
+<p>Le script fait des "full backups" tous les jours ouvrables et dans les commentaires du script, il y a les commandes à lancer pour utiliser ces backups en cas de besoin. Les scripts d'il y a 4 mois sont supprimés pour ne pas prendre trop de space dans le disque.</p>
 
 <h3> medias/ </h3>
 
