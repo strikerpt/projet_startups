@@ -15,8 +15,8 @@ différents, si c\'est le cas, un pop-up de confirmation va afficher les changem
 demander si l\'utilisateur est d\'accord ou pas de poursuivre.
 
 Cette fonction sert aussi à porter les paramètres "filename" et "get".
-"filename" est le nom du fichier php qui contient les requetes pour écrire dans la base de données
-"get" est la valeur qui est sur l\'url (normalement est un nom d\'entreprise ou d\'un titre template  
+"filename" est le nom du fichier php qui contient les requêtes pour écrire dans la base de données
+"get" est la valeur qui est sur l\'url  
 */
 function compare(arr_before, arr_after, filename, get)
 {
@@ -87,7 +87,7 @@ en allant chercher les valeurs par rapport aux id\'s qu\'on a initialiser sur la
 */
 function read(arr) 
 {
-    //Initialiser un tableau vide pour mettre les valeurs des id\'s qu\'on a spécifier
+    //Initialiser un tableau vide pour mettre les valeurs des id\'s que nous avons spécifiés
     var arr_read =[];
 
     for (let i = 0; i < arr.length; i++) 

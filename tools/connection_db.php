@@ -1,6 +1,6 @@
 <?php
 
-
+//Traitement du fichier qui contient le mot de passe de la base de données pour qu'il puisse être utilisé
 $dir = '/var/database_file';
 $myfile = fopen($dir, "r");
 $database_file = fread($myfile,filesize($dir));

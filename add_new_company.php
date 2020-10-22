@@ -391,7 +391,7 @@ if(isset($_SESSION['user']))
                 var type = document.getElementById("type").value;
                 var sector = document.getElementById("sector").value;
 
-                //Ecrire dans la base de données les données saisies par l\'utilisateur
+                //Ecrire des données saisies par l\'utilisateur dans la base de données
                 $.ajax
                 ({
                     url:"tools/add_new_company_db.php",
