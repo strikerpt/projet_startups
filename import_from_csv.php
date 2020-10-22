@@ -52,7 +52,7 @@ if(isset($_SESSION['user']))
                     $uploadOk = 0;
                 }
 
-                //Si une de ces conditions est vraie, alors il n'upload pas le fichier
+                //Si une de ces conditions est vraie, alors il n'importe pas le fichier
                 if ($uploadOk == 0) 
                 {
                     echo "
@@ -65,7 +65,7 @@ if(isset($_SESSION['user']))
                 //Si tout se passe bien
                 else 
                 {
-                    //répertoire où va être enregistrer le fichier
+                    //Répertoire où va être enregistrer le fichier
                     $uploadfile = $_SERVER['DOCUMENT_ROOT']."/".$target_dir.basename(($_FILES["fileToUpload"]["name"]));
                     
                     //Enregistrer le fichier dans le répertoire
@@ -77,13 +77,13 @@ if(isset($_SESSION['user']))
                         //"Ouvrir" le fichier qui aura le résultat après traitement du fichier importé, en lui mettant des droits d'écriture seulement 
                         $output = fopen('csv_imported/startups_modified_good_order.csv', 'w'); 
 
-                        //Lire le fichier importé jusqu'à ce que n'ait plus de lignes
+                        //Lire le fichier importé
                         while(($data = fgetcsv($input, 5000, ",")) !== FALSE)
                         {
                             //Changer l'ordre du fichier importé, en mettant les foreign keys à la fin (dans la base de données, les fks sont à la fin)
                             $order = array(0,1,2,3,5,6,7,8,9,10,11,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,4,7,12);
                             
-                            //Lire le fichier importé jusqu'à ce que n'ait plus de lignes
+                            //Lire le fichier importé
                             while (($csv = fgetcsv($input, 5000, ",")) !== FALSE) 
                             {
                                 //Faire un nouveau tableau avec les données changés pour y mettre les id's des foreign keys
@@ -91,13 +91,13 @@ if(isset($_SESSION['user']))
 
                                 foreach($order as $index)
                                 {
-                                    //Mettre le résultat du fichier importés dans le nouveau tableau avec les changements de place
+                                    //Mettre le résultat du fichier importé dans le nouveau tableau avec les changements de place
                                     $new[] = $csv[$index];
 
-                                    //Conditions pour aller chercher les ids si un status correspond à ceux qui sont dans la base de données
+                                    //Conditions pour aller chercher les ids si un statut correspond à ceux qui sont dans la base de données
                                     if ($csv[4] == "Private" || $csv[4] == "Stopped" || $csv[4] == "M&A" || $csv[4] == "Sarl" || $csv[4] == "Public" || $csv[4] == "Private & M&A") 
                                     {
-                                        //Remplacer le nom du status par l'id du status qui est dans la base de données
+                                        //Remplacer le nom du statut par l'id du statut qui est dans la base de données
                                         $ids_change_status = $db -> query('SELECT id_status FROM status WHERE status = "'.$csv[4].'"');
                                         $id_change_status = $ids_change_status->fetch();
                                         $csv[4] = $id_change_status['id_status'];
@@ -121,7 +121,7 @@ if(isset($_SESSION['user']))
                                         $csv[12] = $id_change_sectors['id_sectors'];
                                     }
 
-                                    //Donner l'id de "None" si dans le fichier importé, le champ status, type ou secteur est vide
+                                    //Donner l'id de "None" si dans le fichier importé, le champ statut, type ou secteur est vide
                                     if($csv[12] == null || $csv[12] == '') 
                                     {
                                         $csv[12] = 7;

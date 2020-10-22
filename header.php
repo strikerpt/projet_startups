@@ -21,7 +21,7 @@ echo '
         <script>
             /*
                 Script qui empêche l\historique sur les pages. 
-                Surtout utilisé pour les formulaires, si l\'utilisateur rafraichi la page, il ne soumet pas les données
+                Surtout utilisé pour les formulaires, si l\'utilisateur rafraichi la page, il ne soumet pas les anciens données
             */
             if ( window.history.replaceState ) 
             {
@@ -42,7 +42,7 @@ echo '
                     //Il affiche seulement le menu si l'utilisateur est connecté
                     if(isset($_SESSION['user']))
                     {
-                        //Il affiche le menu qui concerne aux utilisateurs qui ont le droit d'écrire
+                        //Il affiche le menu aux utilisateurs qui ont le droit d'écrire
                         if($_SESSION['TequilaPHPWrite'] == "TequilaPHPWritetrue")
                         {
                             /*
@@ -66,8 +66,8 @@ echo '
                 <ul class="navbar-nav text-right">
                     <li class="nav-item">';
                     /*
-                    Si l'utilisateur est connecté, sur l'en-tête il y a le lien de logout
-                    Si l'utilisateur est deconnecté, sur l'en-tête il y a le lien de login 
+                    Si l'utilisateur est connecté, sur l'en-tête, il y a le lien de logout
+                    Si l'utilisateur est deconnecté, sur l'en-tête, il y a le lien de login 
                     */
                     if(isset($_SESSION['user']))
                     {

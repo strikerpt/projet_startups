@@ -9,7 +9,7 @@ if(isset($_SESSION['user']))
     {
         if(isset($_GET['company_name']))
         {
-            //Récupérer le nom de la startup qui est un paramètre dans le site
+            //Récupérer le nom de la startup qui est en paramètre dans le site
             $startup_name = security_text($_GET['company_name']);
 
             //Récupérer les données de la startup pour les afficher sur les champs
