@@ -28,11 +28,13 @@ today=$(date +"%d_%m_%Y")
 # Mettre le mois d'il y a 4 mois dans une variable
 four_months_ago=$(date --date='4 months ago' +%m)
 
+# Rechercher les fichiers qui ont plus de 3 mois
 find_files=$(find ~/backup_site/ -name "*${four_months_ago}*")
 
+# Si la variable find-files n'est pas vide
 if [ ! -z "${find_files}" ]
 then
-        #rm les backups d'il y a 4 mois
+        #supprimer les backups d'il y a 4 mois
         rm ${find_files}
 
         # Compresser les fichiers du site et mettre la date du jour dans le nom du tar
