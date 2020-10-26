@@ -12,7 +12,7 @@ if(isset($_SESSION['user']))
         <div class="container">
             <h5 class="font-weight-bold my-3"> Add new company</h5>
             <small class="text-danger my-3 row col-12"> * Fields Required </small>
-            <form method="post" class="form_add_new_company col-12 col-sm-12 col-lg-8 col-xl-8 my-5" action="'; echo security_text($_SERVER["PHP_SELF"]); echo'">
+            <form method="post" id="form_add_new_company" class="form_add_new_company col-12 col-sm-12 col-lg-8 col-xl-8 my-5" action="'; echo security_text($_SERVER["PHP_SELF"]); echo'">
                 <!-- Champ pour le nom de la startup -->
                 <div class="form-group row">
                     <label for="company_name" class="col-sm-4 col-form-label">Company name <small class="text-danger"> *</small> </label>
@@ -24,7 +24,7 @@ if(isset($_SESSION['user']))
                 <div class="form-group row">
                     <label for="founding_year" class="col-sm-4 col-form-label">Founding Year <small class="text-danger"> *</small></label>
                     <div class="col-sm-6">
-                        <input type="text" class="form-control" name="founding_year" id="founding_year" pattern="[0-9]{4}" title="Only numbers, 4 numbers required." required>
+                        <input type="number" class="form-control" name="founding_year" id="founding_year" pattern="[0-9]{4}" title="Only numbers, 4 numbers required." required>
                     </div>
                 </div>
                 <!-- Champ pour l\'url de la startup -->
@@ -289,8 +289,12 @@ if(isset($_SESSION['user']))
                 si les regex ont été respectés, il va récupérer les valeurs et les écrire 
                 dans la base de données.
             */
+                      
             $("#submit_new_company").click(function() 
             {
+                //Initialiser une variable valid à false pour tester les regex avant d\'écrire dans la base de données
+                var valid="false";
+
                 //Récuperer la valeur du champs avec l\'id company_name
                 var company_name_after_check = document.getElementById("company_name").value;
                 
@@ -391,58 +395,72 @@ if(isset($_SESSION['user']))
                 var type = document.getElementById("type").value;
                 var sector = document.getElementById("sector").value;
 
-                //Ecrire des données saisies par l\'utilisateur dans la base de données
-                $.ajax
-                ({
-                    url:"tools/add_new_company_db.php",
-                    method:"POST",
-                    dataType:"text",
-                    data:
+                //Tester si toutes les regex du formulaire ont été respectées
+                var resultat_form = form_add_new_company.checkValidity();
+                
+                //Si les regex ont été respectées
+                if(resultat_form == true)
+                {
+                    //Il initialise la variable à true pour valider l\'écriture
+                    var valid="true";
+                    
+                    if (valid == "true")
                     {
-                        company_name : company_name_after_check,
-                        founding_year : founding_year_after_check,
-                        web : web_after_check,
-                        rc : rc_after_check,
-                        status : status,
-                        exit_year : exit_year_after_check,
-                        time_to_exit : time_to_exit_after_check,
-                        type : type,
-                        capital : capital_after_check,
-                        innogrant : innogrant_after_check,
-                        prix_pre_seed : prix_pre_seed_after_check,
-                        impact : impact_after_check,
-                        sector : sector,
-                        key_words : key_words_after_check,
-                        ba_ma_phd_epfl : ba_ma_phd_epfl_after_check,
-                        founders_origin : founders_origin_after_check,
-                        founders_country : founders_country_after_check,
-                        name : name_after_check,
-                        firstname : firstname_after_check,
-                        function1 : function1_after_check,
-                        email : email_after_check,
-                        email1 : email1_after_check,
-                        linkedin : linkedin_after_check,
-                        name2 : name2_after_check,
-                        firstname2 : firstname2_after_check,
-                        function2 : function2_after_check,
-                        gender_female_ratio : gender_female_ratio_after_check,
-                        gender_female_number : gender_female_number_after_check,
-                        fac_dpt : fac_dpt_after_check,
-                        laboratory : laboratory_after_check,
-                        prof : prof_after_check,
-                        investment_2020 : investment_2020_after_check,
-                        investor_2020 : investor_2020_after_check,
-                        description : description_after_check,
-                    },
-                    success:function(data)
-                    {
-                        alert("You have added a new startup");
-                    },
-                    error:function()
-                    {
-                        alert("Something went wrong, please try again.");
+                        //Ecrire des données saisies par l\'utilisateur dans la base de données
+                        $.ajax
+                        ({
+                            url:"tools/add_new_company_db.php",
+                            method:"POST",
+                            dataType:"text",
+                            data:
+                            {
+                                company_name : company_name_after_check,
+                                founding_year : founding_year_after_check,
+                                web : web_after_check,
+                                rc : rc_after_check,
+                                status : status,
+                                exit_year : exit_year_after_check,
+                                time_to_exit : time_to_exit_after_check,
+                                type : type,
+                                capital : capital_after_check,
+                                innogrant : innogrant_after_check,
+                                prix_pre_seed : prix_pre_seed_after_check,
+                                impact : impact_after_check,
+                                sector : sector,
+                                key_words : key_words_after_check,
+                                ba_ma_phd_epfl : ba_ma_phd_epfl_after_check,
+                                founders_origin : founders_origin_after_check,
+                                founders_country : founders_country_after_check,
+                                name : name_after_check,
+                                firstname : firstname_after_check,
+                                function1 : function1_after_check,
+                                email : email_after_check,
+                                email1 : email1_after_check,
+                                linkedin : linkedin_after_check,
+                                name2 : name2_after_check,
+                                firstname2 : firstname2_after_check,
+                                function2 : function2_after_check,
+                                gender_female_ratio : gender_female_ratio_after_check,
+                                gender_female_number : gender_female_number_after_check,
+                                fac_dpt : fac_dpt_after_check,
+                                laboratory : laboratory_after_check,
+                                prof : prof_after_check,
+                                investment_2020 : investment_2020_after_check,
+                                investor_2020 : investor_2020_after_check,
+                                description : description_after_check,
+                            },
+                            success:function(data)
+                            {
+                                alert("You have added a new startup");
+                                window.location.replace("https://itsidevfsd0008.xaas.epfl.ch/add_new_company.php");
+                            },
+                            error:function()
+                            {
+                                alert("Something went wrong, please try again.");
+                            }
+                        });
                     }
-                }); 
+                } 
             });
         </script>';
 
