@@ -38,33 +38,42 @@ function compare(arr_before, arr_after, filename, get)
             //Si l\'utilisateur est d\'accord avec les changements (si oui = true)
             if (resultat == true)
             {
-                //Ecriture des changements dans la base de données
-                $.ajax
-                ({  
-                    //Chemin vers la page qui contient les requêtes SQL
-                    url:"tools/"+filename,
-                    method:"POST",
-                    dataType:"text",
-                    data: 
-                    {
-                        get : get,
-                        name_field : arr_before[i][0],
-                        changed_field : arr_after[i][1],
-                        change_company : change_company
-                    },
+                //Tester si toutes les regex du formulaire ont été respectées
+                var resultat_form = form_change_startup.checkValidity();
 
-                    /*Si tout est bien, il affiche un pop-up, en disant que les changements
-                    ont été faits et il rafraîchit la page pour montrer à l\'utilisateur les changements*/
-                    success:function(data)
+                //Si les regex ont été respectées
+                if(resultat_form == true)
+                {
+                    //Changer la variable à true pour écrire dans la base de données les changements
+                    var valid = "true";
+
+                    if (valid == "true")
                     {
-                        alert("The "+arr_before[i][0]+" was changed");
-                        setTimeout(function()
-                        {
-                            window.location.reload(1);
-                        }, 0);
+                        //Ecriture des changements dans la base de données
+                        $.ajax
+                        ({  
+                            //Chemin vers la page qui contient les requêtes SQL
+                            url:"tools/"+filename,
+                            method:"POST",
+                            dataType:"text",
+                            data: 
+                            {
+                                get : get,
+                                name_field : arr_before[i][0],
+                                changed_field : arr_after[i][1],
+                                change_company : change_company
+                            },
+
+                            /*Si tout est bien, il affiche un pop-up, en disant que les changements
+                            ont été faits et il rafraîchit la page pour montrer à l\'utilisateur les changements*/
+                            success:function(data)
+                            {
+                                alert("The "+arr_before[i][0]+" was changed");
+                                window.location.replace("https://itsidevfsd0008.xaas.epfl.ch/company_information_modification.php?company_name="+get);
+                            }
+                        });
                     }
-                });
-                
+                }   
             }          
         }
     }

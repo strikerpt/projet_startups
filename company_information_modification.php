@@ -20,19 +20,20 @@ if(isset($_SESSION['user']))
             echo '
             <div class="container">
                 <h5 class="font-weight-bold my-3"> Company information / modification</h5>
+                <small class="text-danger my-3 row col-12"> * Fields Required </small>
                 <form method="post" id="form_change_startup" class="form_change_startup col-12 col-sm-12 col-lg-8 col-xl-8 my-5" action="'; echo security_text($_SERVER["PHP_SELF"])."?company_name=".$_GET["company_name"]; echo'">
                     <!-- Champ pour le nom de la startup -->
                     <div class="form-group row">
-                        <label for="company_name" class="col-sm-4 col-form-label">Company name</label>
+                        <label for="company_name" class="col-sm-4 col-form-label">Company name<small class="text-danger"> *</small> </label>
                         <div class="col-sm-6">
                             <input type="text" class="form-control" value="'.$startup_data['company'].'" name="company_name" id="company_name" pattern="[A-Za-z0-9[\(\-\+éöïçàäèüãáñâôé,()\.@#\+&=!$£?\'\/<>:;^`~\|*_\] ]{2,300}" title="Letters and Numbers are accepted. Minimum 2 characters and maximum 300. The special characters accepted are : &quot; (-+éöïçàäèüãáñâôé,().@#+&=!$£?\'/<>:;^`~|*_ &quot;" required>
                         </div>
                     </div>
                     <!-- Champ pour l\'année de création de la startup -->
                     <div class="form-group row">
-                        <label for="founding_year" class="col-sm-4 col-form-label">Founding Year</label>
+                        <label for="founding_year" class="col-sm-4 col-form-label">Founding Year<small class="text-danger"> *</small> </label>
                         <div class="col-sm-6">
-                            <input type="text" class="form-control" value="'.$startup_data['founding_year'].'" name="founding_year" id="founding_year" pattern="[0-9]{4}" title="Only numbers, 4 numbers required." required>
+                            <input type="number" class="form-control" value="'.$startup_data['founding_year'].'" name="founding_year" id="founding_year" pattern="[0-9]{4}" title="Only numbers, 4 numbers required." required>
                         </div>
                     </div>
                     <!-- Champ pour l\'url de la startup -->
@@ -51,7 +52,7 @@ if(isset($_SESSION['user']))
                     </div>
                     <!-- Combobox pour afficher tout les status d\'une startup -->
                     <div class="form-group row">
-                        <label for="status" class="col-sm-4 col-form-label">Status</label>
+                        <label for="status" class="col-sm-4 col-form-label">Status<small class="text-danger"> *</small> </label>
                         <div class="col-sm-6">
                             <select class="form-control" name="status" id="status" required>';
 
@@ -92,7 +93,7 @@ if(isset($_SESSION['user']))
                     </div>
                     <!-- Combobox pour afficher tout les types d\'une startup -->
                     <div class="form-group row">
-                        <label for="type" class="col-sm-4 col-form-label">Type</label>
+                        <label for="type" class="col-sm-4 col-form-label">Type<small class="text-danger"> *</small> </label>
                         <div class="col-sm-6">
                             <select class="form-control" class="selectpicker" data-dropup-auto="true" name="type" id="type" required>
                                 <option name="none" value="None">None</option>';
@@ -148,7 +149,7 @@ if(isset($_SESSION['user']))
                     </div>
                     <!-- Combobox pour afficher tout les sectors d\'une startup -->
                     <div class="form-group row">
-                        <label for="sectors" class="col-sm-4 col-form-label">Field / Sectors</label>
+                        <label for="sectors" class="col-sm-4 col-form-label">Field / Sectors<small class="text-danger"> *</small> </label>
                         <div class="col-sm-6">
                         <select class="form-control" class="selectpicker" data-dropup-auto="true" name="sector" id="sector" required>';
                             //Récupérer le sectors de la startup et l'afficher sur la combobox, mais afficher les autres possibilités si l'utilisateur veut changer le sectors de la startup
@@ -265,14 +266,14 @@ if(isset($_SESSION['user']))
                     </div>
                     <!-- Champ pour le ratio de femmes/hommes dans la startup-->
                     <div class="form-group row">
-                        <label for="gender_female_ratio" class="col-sm-4 col-form-label">Gender female Ratio</label>
+                        <label for="gender_female_ratio" class="col-sm-4 col-form-label">Gender female Ratio<small class="text-danger"> *</small> </label>
                         <div class="col-sm-6">
                         <input type="text" class="form-control" value="'.$startup_data['gender_female_ratio'].'" name="gender_female_ratio" id="gender_female_ratio" pattern="[0-9[\/%\] ]{1,20}" title="Only numbers allowed. Minimum 1 characters and maximum 20. Special characters allowed are &quot; /% &quot;" required>
                         </div>
                     </div>
                     <!-- Champ pour le nombre de femmes dans la startup-->
                     <div class="form-group row">
-                        <label for="gender_female_number" class="col-sm-4 col-form-label">Gender female number</label>
+                        <label for="gender_female_number" class="col-sm-4 col-form-label">Gender female number<small class="text-danger"> *</small> </label>
                         <div class="col-sm-6">
                         <input type="number" class="form-control" value="'.$startup_data['gender_female_number'].'" name="gender_female_number" id="gender_female_number" pattern="[0-9]{1,20}" title="Only numbers allowed. Minimum 1 characters and maximum 20." required>
                         </div>
@@ -326,6 +327,8 @@ if(isset($_SESSION['user']))
                 </form>
             </div>
             <script>
+
+            var get = "'.$startup_name.'";
                 //Récupérer la valeur du champ "exit year" pour savoir si l\'entreprise a déjà une date de fin
                 var delete_company = document.getElementById("exit_year").value;
 
@@ -339,6 +342,9 @@ if(isset($_SESSION['user']))
                 var status = document.getElementById("status").value;
                 var type = document.getElementById("type").value;
                 var sector = document.getElementById("sector").value;
+
+                //Initialiser une variable false pour ne pas écrire dans la base de données avant les tests des regex
+                var valid = "false";
 
                 /*Variable "arr" est un tableau avec les id\'s nécessaires pour pouvoir ensuite faire une comparaison entre
                 les messages avant le clique et après le clique.
@@ -359,7 +365,7 @@ if(isset($_SESSION['user']))
         }
         else
         {
-            echo '<meta http-equiv="Refresh" content="0; URL=http://itsidevfsd0008.xaas.epfl.ch/">';
+            echo '<meta http-equiv="Refresh" content="0; URL=https://itsidevfsd0008.xaas.epfl.ch/">';
         }
         require 'tools/disconnection_db.php';
         require 'footer.php';
