@@ -69,7 +69,8 @@ function compare(arr_before, arr_after, filename, get)
                             success:function(data)
                             {
                                 alert("The "+arr_before[i][0]+" was changed");
-                                window.location.replace("https://itsidevfsd0008.xaas.epfl.ch/company_information_modification.php?company_name="+get);
+                                window.location.replace("https://itsidevfsd0008.xaas.epfl.ch/company_information_modification.php?id="+get);
+                                location.reload();
                             }
                         });
                     }

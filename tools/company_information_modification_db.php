@@ -37,7 +37,7 @@ if($change_company == "true")
         $status_startup = $status_startups -> fetch(); 
 
         echo $status_startup['id_status'];
-        $update_changes = $db -> prepare('UPDATE startup SET '.$name_field.' = "'.$status_startup['id_status'].'" WHERE company ="'.$get.'" ');
+        $update_changes = $db -> prepare('UPDATE startup SET '.$name_field.' = "'.$status_startup['id_status'].'" WHERE id_startup ="'.$get.'" ');
         $update_changes -> execute();
     }
 
@@ -49,7 +49,7 @@ if($change_company == "true")
         $sectors_startups = $db ->query('SELECT id_sectors FROM sectors WHERE sectors ="'.$changed_field.'"');
         $sectors_startup = $sectors_startups -> fetch(); 
 
-        $update_changes = $db -> prepare('UPDATE startup SET '.$name_field.' = "'.$sectors_startup['id_sectors'].'" WHERE company ="'.$get.'" ');
+        $update_changes = $db -> prepare('UPDATE startup SET '.$name_field.' = "'.$sectors_startup['id_sectors'].'" WHERE id_startup ="'.$get.'" ');
         $update_changes -> execute();
     }
 
@@ -61,12 +61,12 @@ if($change_company == "true")
         $type_startups = $db ->query('SELECT id_type FROM type WHERE type ="'.$changed_field.'"');
         $type_startup = $type_startups -> fetch(); 
 
-        $update_changes = $db -> prepare('UPDATE startup SET '.$name_field.' = "'.$type_startup['id_type'].'" WHERE company ="'.$get.'" ');
+        $update_changes = $db -> prepare('UPDATE startup SET '.$name_field.' = "'.$type_startup['id_type'].'" WHERE id_startup ="'.$get.'" ');
         $update_changes -> execute();
     }
     else
     {
-        $update_changes = $db -> prepare('UPDATE startup SET '.$name_field.' = "'.$changed_field.'" WHERE company ="'.$get.'" ');
+        $update_changes = $db -> prepare('UPDATE startup SET '.$name_field.' = "'.$changed_field.'" WHERE id_startup ="'.$get.'" ');
         $update_changes -> execute();
     }
 }
@@ -76,7 +76,7 @@ else
     //Il met l'année courante dans le champ exit year
     if($delete_startup == "true")
     {
-        $delete_startup = $db -> prepare('UPDATE startup SET exit_year = "'.$year_date.'" WHERE company ="'.$get.'" ');
+        $delete_startup = $db -> prepare('UPDATE startup SET exit_year = "'.$year_date.'" WHERE id_startup ="'.$get.'" ');
         $delete_startup -> execute();
     }
 }
