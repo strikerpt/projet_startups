@@ -1,9 +1,10 @@
 <?php
 
-require 'header.php';
+
 
 if(isset($_SESSION['user']))
 {
+    require 'header.php';
     echo "
 
     <script type='text/javascript'>
@@ -264,5 +265,14 @@ if(isset($_SESSION['user']))
     </div>";
 
     require 'footer.php';
+}
+else
+{
+    echo "
+    <script>
+        alert('You have to be connected to see this page.');
+        window.location.replace('https://itsidevfsd0008.xaas.epfl.ch/login.php');
+    </script>
+    ";
 }
 ?>
