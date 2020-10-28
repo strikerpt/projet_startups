@@ -7,13 +7,13 @@ if(isset($_SESSION['user']))
 {
     if($_SESSION['TequilaPHPWrite'] == "TequilaPHPWritetrue")
     {
-        if(isset($_GET['company_name']))
+        if(isset($_GET['id']))
         {
             //Récupérer le nom de la startup qui est en paramètre dans le site
-            $startup_name = security_text($_GET['company_name']);
+            $id_startup = security_text($_GET['id']);
 
             //Récupérer les données de la startup pour les afficher sur les champs
-            $startups_data = $db -> query('SELECT * FROM startup WHERE company="'.$startup_name.'"');
+            $startups_data = $db -> query('SELECT * FROM startup WHERE id_startup="'.$id_startup.'"');
             $startup_data = $startups_data -> fetch();
 
             //Champs avec les données de la startup et possibilité de changement de ces données
@@ -21,7 +21,7 @@ if(isset($_SESSION['user']))
             <div class="container">
                 <h5 class="font-weight-bold my-3"> Company information / modification</h5>
                 <small class="text-danger my-3 row col-12"> * Fields Required </small>
-                <form method="post" id="form_change_startup" class="form_change_startup col-12 col-sm-12 col-lg-8 col-xl-8 my-5" action="'; echo security_text($_SERVER["PHP_SELF"])."?company_name=".$_GET["company_name"]; echo'">
+                <form method="post" id="form_change_startup" class="form_change_startup col-12 col-sm-12 col-lg-8 col-xl-8 my-5" action="'; echo security_text($_SERVER["PHP_SELF"])."?id=".security_text($_GET["id"]); echo'">
                     <!-- Champ pour le nom de la startup -->
                     <div class="form-group row">
                         <label for="company_name" class="col-sm-4 col-form-label">Company name<small class="text-danger"> *</small> </label>
@@ -57,7 +57,7 @@ if(isset($_SESSION['user']))
                             <select class="form-control" name="status" id="status" required>';
 
                                 //Récupérer le status de la startup et l'afficher sur la combobox, mais afficher les autres possibilités si l'utilisateur veut changer le status de la startup
-                                $status_data_startups = $db-> query('SELECT status FROM status INNER JOIN startup ON status.id_status = startup.fk_status WHERE company = "'.$startup_name.'"');
+                                $status_data_startups = $db-> query('SELECT status FROM status INNER JOIN startup ON status.id_status = startup.fk_status WHERE id_startup = "'.$id_startup.'"');
                                 $status_data_startup = $status_data_startups -> fetch();
 
                                 $status_data = $db-> query('SELECT status FROM status');
@@ -99,7 +99,7 @@ if(isset($_SESSION['user']))
                                 <option name="none" value="None">None</option>';
                                 
                                 //Récupérer le type de la startup et l'afficher sur la combobox, mais afficher les autres possibilités si l'utilisateur veut changer le type de la startup
-                                $type_data_startups = $db-> query('SELECT type FROM type INNER JOIN startup ON type.id_type = startup.fk_type WHERE company = "'.$startup_name.'"');
+                                $type_data_startups = $db-> query('SELECT type FROM type INNER JOIN startup ON type.id_type = startup.fk_type WHERE id_startup = "'.$id_startup.'"');
                                 $type_data_startup = $type_data_startups -> fetch();
 
                                 $type_data = $db-> query('SELECT type FROM type');
@@ -153,7 +153,7 @@ if(isset($_SESSION['user']))
                         <div class="col-sm-6">
                         <select class="form-control" class="selectpicker" data-dropup-auto="true" name="sector" id="sector" required>';
                             //Récupérer le sectors de la startup et l'afficher sur la combobox, mais afficher les autres possibilités si l'utilisateur veut changer le sectors de la startup
-                            $sectors_data_startups = $db-> query('SELECT sectors FROM sectors INNER JOIN startup ON sectors.id_sectors = startup.fk_sectors WHERE company = "'.$startup_name.'"');
+                            $sectors_data_startups = $db-> query('SELECT sectors FROM sectors INNER JOIN startup ON sectors.id_sectors = startup.fk_sectors WHERE id_startup = "'.$id_startup.'"');
                             $sectors_data_startup = $sectors_data_startups -> fetch();
 
                             $sectors_data = $db-> query('SELECT sectors FROM sectors');
@@ -328,7 +328,7 @@ if(isset($_SESSION['user']))
             </div>
             <script>
 
-            var get = "'.$startup_name.'";
+                var get = "'.$id_startup.'";
                 //Récupérer la valeur du champ "exit year" pour savoir si l\'entreprise a déjà une date de fin
                 var delete_company = document.getElementById("exit_year").value;
 
@@ -353,7 +353,7 @@ if(isset($_SESSION['user']))
                 
                 Ces variables sont utilisées sur le fichier "functions_changes.php" */
                 var arr = ["company_name", "founding_year", "web", "rc", "status", "exit_year", "time_to_exit", "type", "capital", "innogrant", "prix_pre_seed", "impact", "sector", "key_words", "ba_ma_phd_epfl", "founders_origin", "founders_country", "name", "firstname", "function1", "email", "email1", "linkedin", "name2","firstname2", "function2", "gender_female_ratio", "gender_female_number","fac_dpt", "laboratory", "prof","investment_2020", "investor_2020", "description"];
-                var get = "'.$_GET['company_name'].'";
+                var get = "'.security_text($_GET['id']).'";
                 var filename = "company_information_modification_db.php";
                 ';
 
