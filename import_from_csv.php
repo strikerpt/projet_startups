@@ -1,13 +1,11 @@
 <?php
 
-
+require 'header.php';
+require 'tools/connection_db.php';
 
 //Si l'utilisateur est connecté
 if(isset($_SESSION['user']))
 {
-    require 'header.php';
-    require 'tools/connection_db.php';
-    
     //Si l'utilisateur a le droit d'écrire
     if($_SESSION['TequilaPHPWrite'] == "TequilaPHPWritetrue")
     {
@@ -205,7 +203,6 @@ else
 {
     echo "
     <script>
-        alert('You have to be connected to see this page.');
         window.location.replace('https://itsidevfsd0008.xaas.epfl.ch/login.php');
     </script>
     ";
