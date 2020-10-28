@@ -167,16 +167,39 @@ if(isset($_SESSION['user']))
                     var id_cell = cell_e.cellIndex;
 
                     //Cette condition permet rediriger l'utilisateur vers la bonne page suivant la celulle cliquée
-                    if(id_cell == 0 || id_cell == 1 || id_cell == 2 || id_cell == 3)
+                    if(id_cell == 0 || id_cell == 1 || id_cell == 2 || id_cell == 3 || id_cell == 4 || id_cell == 5)
                     {
+                        //Récupérer le nom de startup cliqué
                         var str = tableDataView.getFormattedValue(selectedRow, 0);
-                        window.location.href = 'https://itsidevfsd0008.xaas.epfl.ch/company_information_modification.php?company_name='+str;
-                    }
-                    else if (id_cell == 4 || id_cell == 5)
-                    {
-                        var str = tableDataView.getFormattedValue(selectedRow, 0);
-                        window.location.href = 'https://itsidevfsd0008.xaas.epfl.ch/company_information_modification.php?company_name='+str;
-                    }   
+
+                        //Chercher l'id de la startup dans la base de données
+                        $.ajax
+                        ({  
+                            //Chemin vers la page qui contient les requêtes SQL
+                            url:'tools/id_startups_index_db.php',
+                            method:'POST',
+                            dataType:'JSON',
+                            data: 
+                            {
+                                str : str,
+                            },
+
+                            /*Si tout est bien, il affiche un pop-up, en disant que les changements
+                            ont été faits et il rafraîchit la page pour montrer à l\'utilisateur les changements*/
+                            success:function(data)
+                            {
+                                //Récupérer l'id de la startup dans la base de données
+                                var id_startup = data[0].id_startup;
+                                
+                                //Mettre l'id comme paramètre dans l'url
+                                window.location.replace('https://itsidevfsd0008.xaas.epfl.ch/company_information_modification.php?id='+id_startup);
+                            },
+                            error:function()
+                            {
+                                alert('Something went wrong, please try again.');
+                            }
+                        });
+                    } 
                 }
             
             });
