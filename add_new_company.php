@@ -1,12 +1,10 @@
 <?php
 
-
+require 'header.php';
+require 'tools/connection_db.php';
 
 if(isset($_SESSION['user']))
 {
-    require 'header.php';
-    require 'tools/connection_db.php';
-    
     if($_SESSION['TequilaPHPWrite'] == "TequilaPHPWritetrue")
     {
         //Formulaire pour ajouter une nouvelle startup
@@ -483,7 +481,6 @@ else
 {
     echo "
     <script>
-        alert('You have to be connected to see this page.');
         window.location.replace('https://itsidevfsd0008.xaas.epfl.ch/login.php');
     </script>
     ";
