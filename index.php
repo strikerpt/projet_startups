@@ -207,40 +207,7 @@ if(isset($_SESSION['user']))
             //Partie pour télécharger les données du tableau en format CSV
             $('.csv-button').on('click', function () 
             {
-                //Fonction pour avoir la date du jour avec le format dd_mm_yyyy
-                function GetFormattedDate() 
-                {
-                    var today = new Date();
-                    var day = String(today.getDate()).padStart(2, '0');
-                    var month = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-                    var year = today.getFullYear();
-                    return day + '_' + month + '_' + year;
-                }
-
-                var csvColumns;
-                var csvContent;
-                var downloadLink;
-            
-                // L\'en-tête du fichier CSV
-                csvColumns = '';
-                for (var i = 0; i < data.getNumberOfColumns(); i++) 
-                {
-                    csvColumns += data.getColumnLabel(i);
-                    if (i < (data.getNumberOfColumns() - 1)) 
-                    {
-                        csvColumns += ',';
-                    }
-                }
-                csvColumns += '\\n';
-            
-                //Récupérer les données pour les mettre dans le fichier et le télécharger en mettant la date du jour sur le nom du téléchangement
-                csvContent = csvColumns + google.visualization.dataTableToCsv(data);
-                downloadLink = document.createElement('a');
-                downloadLink.href = 'data:text/csv;charset=utf-8,' + encodeURI(csvContent);
-                downloadLink.download = 'startups_'+GetFormattedDate()+'.csv';
-                downloadLink.click();
-                downloadLink = null;
-
+                window.location.replace('https://itsidevfsd0008.xaas.epfl.ch:8080/tools/export_csv.php');
             });
 
             //Dessiner les champs et faire appel aux fonctions des filtres
