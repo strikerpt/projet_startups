@@ -75,13 +75,13 @@ if(isset($_SESSION['user']))
                         $input = fopen('csv_imported/'.basename(($_FILES["fileToUpload"]["name"])).'', 'r');
                         
                         //"Ouvrir" le fichier qui aura le résultat après traitement du fichier importé, en lui mettant des droits d'écriture seulement 
-                        $output = fopen('csv_imported/startups_modified_good_order.csv', 'w'); 
-
+                        $output= fopen('csv_imported/startups_modified_good_order.csv', 'a+');
+                        
                         //Lire le fichier importé
                         while(($data = fgetcsv($input, 5000, ",")) !== FALSE)
                         {
                             //Changer l'ordre du fichier importé, en mettant les foreign keys à la fin (dans la base de données, les fks sont à la fin)
-                            $order = array(0,1,2,3,5,6,7,8,9,10,11,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,4,7,12);
+                            $order = array(0,1,2,3,5,6,8,9,10,11,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,4,7,12);
                             
                             //Lire le fichier importé
                             while (($csv = fgetcsv($input, 5000, ",")) !== FALSE) 
@@ -92,7 +92,7 @@ if(isset($_SESSION['user']))
                                 foreach($order as $index)
                                 {
                                     //Mettre le résultat du fichier importé dans le nouveau tableau avec les changements de place
-                                    $new[] = $csv[$index];
+                                    $new[] = $csv[$index];                                    
 
                                     //Conditions pour aller chercher les ids si un statut correspond à ceux qui sont dans la base de données
                                     if ($csv[4] == "Private" || $csv[4] == "Stopped" || $csv[4] == "M&A" || $csv[4] == "Sarl" || $csv[4] == "Public" || $csv[4] == "Private & M&A") 
@@ -136,18 +136,46 @@ if(isset($_SESSION['user']))
                                     }
                                 }
 
-                                //Ecrire dans le nouveau fichier le résultat avec le changement de place et remplacement des mots par les ids
+                                //Mettre les changements dans le fichier output
                                 fputcsv($output, $new);
 
-                                //Ecrire dans la base de données, les données du fichier
-                                $import_data_to_db = $db -> prepare('INSERT INTO startup(company,founding_year,web,rc,exit_year,time_to_exit,capital,innogrant,prix_pre_seed,impact,key_words,ba_ma_phd_epfl,founders_origin,founders_country,name,firstname,function,email,email1,linkedin,name2,firstname2,function2,gender_female_ratio,gender_female_number,fac_dpt,laboratory,prof,investment_2020,investor_2020,description,fk_status,fk_type,fk_sectors) VALUES ("'.$csv[0].'","'.$csv[1].'","'.$csv[2].'","'.$csv[3].'","'.$csv[5].'","'.$csv[6].'","'.$csv[8].'","'.$csv[9].'","'.$csv[10].'","'.$csv[11].'","'.$csv[13].'","'.$csv[14].'","'.$csv[15].'","'.$csv[16].'","'.$csv[17].'","'.$csv[18].'","'.$csv[19].'","'.$csv[20].'","'.$csv[21].'","'.$csv[22].'","'.$csv[23].'","'.$csv[24].'","'.$csv[25].'","'.$csv[26].'","'.$csv[27].'","'.$csv[28].'","'.$csv[29].'","'.$csv[30].'","'.$csv[31].'","'.$csv[32].'", "'.$csv[33].'", "'.$csv[4].'","'.$csv[7].'","'.$csv[12].'")');
-                                $import_data_to_db -> execute();
+                                //Chercher les startups qui sont déjà dans la base de données
+                                $set_only_non_existants = $db->query('SELECT company FROM startup_test WHERE company = "'.$csv[0].'"');
+                                $set_only_non_existant = $set_only_non_existants->fetchAll();
+                                foreach($set_only_non_existant as $only_non_existant)
+                                {
+                                    //Supprimer du fichier créé ci-dessous les startups qui sont déjà dans la base de données
+                                    $rows = file("csv_imported/startups_modified_good_order.csv");
+                                    
+                                    $blacklist = $only_non_existant['company'];
+
+                                    foreach($rows as $key => $row) 
+                                    {
+                                        if(preg_match("/($blacklist)/", $row)) 
+                                        {
+                                            unset($rows[$key]); 
+                                        }
+                                    }
+
+                                    file_put_contents("csv_imported/startups_modified_good_order.csv", $rows);   
+                                }
                             }
-                        
                         }
-                        //"Fermer" les fichiers qu'il a ouvert au-dessus
+
+                        //Ouvrir le fichier modifié pour obtenir les données et les mettre dans la base de données
+                        $file_output = fopen("csv_imported/startups_modified_good_order.csv","r");
+
+                        while (($data_import_db = fgetcsv($file_output, 20000, ",")) !== FALSE) 
+                        {   
+                            //Ecrire dans la base de données, les données du fichier
+                            $import_data_to_db = $db -> prepare('INSERT INTO startup_test(company,founding_year,web,rc,exit_year,time_to_exit,capital,innogrant,prix_pre_seed,impact,key_words,ba_ma_phd_epfl,founders_origin,founders_country,name,firstname,function,email,email1,linkedin,name2,firstname2,function2,gender_female_ratio,gender_female_number,fac_dpt,laboratory,prof,investment_2020,investor_2020,description,fk_status,fk_type,fk_sectors) VALUES ("'.$data_import_db[0].'","'.$data_import_db[1].'","'.$data_import_db[2].'","'.$data_import_db[3].'","'.$data_import_db[4].'","'.$data_import_db[5].'","'.$data_import_db[6].'","'.$data_import_db[7].'","'.$data_import_db[8].'","'.$data_import_db[9].'","'.$data_import_db[10].'","'.$data_import_db[11].'","'.$data_import_db[12].'","'.$data_import_db[13].'","'.$data_import_db[14].'","'.$data_import_db[15].'","'.$data_import_db[16].'","'.$data_import_db[17].'","'.$data_import_db[18].'","'.$data_import_db[19].'","'.$data_import_db[20].'","'.$data_import_db[21].'","'.$data_import_db[22].'","'.$data_import_db[23].'","'.$data_import_db[24].'","'.$data_import_db[25].'","'.$data_import_db[26].'","'.$data_import_db[27].'","'.$data_import_db[28].'","'.$data_import_db[29].'", "'.$data_import_db[30].'", "'.$data_import_db[31].'","'.$data_import_db[32].'","'.$data_import_db[33].'")');
+                            $import_data_to_db -> execute();
+                        }
+                        
+                        //"Fermer" les fichiers ouverts au-dessus
                         fclose($input);
                         fclose($output);
+                        fclose($file_output);
 
                         //Supprimer le fichier qui a été importé par l'utilsateur et le fichier de traitement des données
                         unlink('csv_imported/'.basename(($_FILES["fileToUpload"]["name"])).'');
