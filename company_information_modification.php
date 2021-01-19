@@ -126,18 +126,25 @@ if(isset($_SESSION['user']))
                         <input type="text" class="form-control" value="'.$startup_data['capital'].'" name="capital" id="capital" pattern="[A-Za-z0-9 ]{1,30}" title="Minimum 1 character and maximum 30 characters.">
                         </div>
                     </div>
-                    <!-- Champ pour l\'innogrant de la startup -->
+                    <!-- Champ pour le investor platform de la startup -->
                     <div class="form-group row">
-                        <label for="innogrant" class="col-sm-4 col-form-label">Innogrant</label>
+                        <label for="investor_platform" class="col-sm-4 col-form-label">Investor Platform</label>
                         <div class="col-sm-6">
-                        <input type="text" class="form-control" value="'.$startup_data['innogrant'].'" name="innogrant" id="innogrant" pattern="[A-Za-z0-9[\(\-\+éöïçàäèüãáñâôé,()\.@#\+&=!$£?\'\/<>:;^`~\|*_\] ]{2,30}" title="Minimum 2 characters and maximum 30. Special characters allowed are &quot; (-+éöïçàäèüãáñâôé,().@#+&=!$£?\'/<>:;^`~|*_ &quot;">
+                        <input type="text" class="form-control" value="'.$startup_data['investor_platform'].'" name="investor_platform" id="investor_platform" pattern="[A-Za-z0-9 ]{1,100}" title="Minimum 1 character and maximum 100 characters.">
                         </div>
                     </div>
-                    <!-- Champ pour le prix pre seed de la startup -->
+                    <!-- Champ pour l\'epfl grant de la startup -->
                     <div class="form-group row">
-                        <label for="prix_pre_seed" class="col-sm-4 col-form-label">Prix pre seed</label>
+                        <label for="epfl_grant" class="col-sm-4 col-form-label">EPFL Grant</label>
                         <div class="col-sm-6">
-                        <input type="text" class="form-control" value="'.$startup_data['prix_pre_seed'].'" name="prix_pre_seed" id="prix_pre_seed" pattern="[A-Za-z0-9[\(\-\+éöïçàäèüãáñâôé,()\.@#\+&=!$£?\'\/<>:;^`~\|*_\] ]{2,300}" title="Minimum 2 characters and maximum 300. Special characters allowed are &quot; (-+éöïçàäèüãáñâôé,().@#+&=!$£?\'/<>:;^`~|*_ &quot;">
+                        <input type="text" class="form-control" value="'.$startup_data['epfl_grant'].'" name="epfl_grant" id="epfl_grant" pattern="[A-Za-z0-9[\(\-\+éöïçàäèüãáñâôé,()\.@#\+&=!$£?\'\/<>:;^`~\|*_\] ]{2,100}" title="Minimum 2 characters and maximum 100. Special characters allowed are &quot; (-+éöïçàäèüãáñâôé,().@#+&=!$£?\'/<>:;^`~|*_ &quot;">
+                        </div>
+                    </div>
+                    <!-- Champ pour le prix hors epfl de la startup -->
+                    <div class="form-group row">
+                        <label for="prix_hors_epfl" class="col-sm-4 col-form-label">Prix hors EPFL</label>
+                        <div class="col-sm-6">
+                        <input type="text" class="form-control" value="'.$startup_data['prix_hors_epfl'].'" name="prix_hors_epfl" id="prix_hors_epfl" pattern="[A-Za-z0-9[\(\-\+éöïçàäèüãáñâôé,()\.@#\+&=!$£?\'\/<>:;^`~\|*_\] ]{2,300}" title="Minimum 2 characters and maximum 300. Special characters allowed are &quot; (-+éöïçàäèüãáñâôé,().@#+&=!$£?\'/<>:;^`~|*_ &quot;">
                         </div>
                     </div>
                     <!-- Champ pour l\'impact de la startup -->
@@ -224,23 +231,16 @@ if(isset($_SESSION['user']))
                     </div>
                     <!-- Champ pour email-->
                     <div class="form-group row">
-                        <label for="email" class="col-sm-4 col-form-label">Email</label>
-                        <div class="col-sm-6">
-                        <input type="email" class="form-control" value="'.$startup_data['email'].'" name="email" id="email" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}" title="Write an valid email address.">
-                        </div>
-                    </div>
-                    <!-- Champ pour un autre email-->
-                    <div class="form-group row">
-                        <label for="email1" class="col-sm-4 col-form-label">Email1</label>
+                        <label for="email1" class="col-sm-4 col-form-label">Email 1</label>
                         <div class="col-sm-6">
                         <input type="email" class="form-control" value="'.$startup_data['email1'].'" name="email1" id="email1" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}" title="Write an valid email address.">
                         </div>
                     </div>
-                    <!-- Champ pour le linkedin des fondateurs-->
+                    <!-- Champ pour un autre email-->
                     <div class="form-group row">
-                        <label for="linkedin" class="col-sm-4 col-form-label">Linkedin</label>
+                        <label for="email2" class="col-sm-4 col-form-label">Email 2 </label>
                         <div class="col-sm-6">
-                        <input type="text" class="form-control" value="'.$startup_data['linkedin'].'" name="linkedin" id="linkedin" pattern="((https://)|(http://)|(www)).*" title="Your url must begin by &quot;www&quot;,&quot;http://&quot; or &quot;https://&quot;.">
+                        <input type="email" class="form-control" value="'.$startup_data['email2'].'" name="email2" id="email2" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}" title="Write an valid email address.">
                         </div>
                     </div>
                     <!-- Champ pour le deuxième nom-->
@@ -262,6 +262,13 @@ if(isset($_SESSION['user']))
                         <label for="function2" class="col-sm-4 col-form-label">Function2</label>
                         <div class="col-sm-6">
                         <input type="text" class="form-control" value="'.$startup_data['function2'].'" name="function2" id="function2" pattern="[A-Za-z[\-\] ]{2,100}" title="Only letters allowed. Minimum 2 characters and maximum 100. Special characters allowed are &quot; - &quot;">
+                        </div>
+                    </div>
+                    <!-- Champ pour le nom du professeur fondateur-->
+                    <div class="form-group row">
+                        <label for="prof_as_founder" class="col-sm-4 col-form-label">Prof. as Founder</label>
+                        <div class="col-sm-6">
+                        <input type="text" class="form-control" value="'.$startup_data['prof_as_founder'].'" name="prof_as_founder" id="prof_as_founder" pattern="[a-zA-Z[\.\] ]{2,100}" title="Only letters allowed. Minimum 2 characters and maximum 100. Special characters allowed are &quot; . &quot;">
                         </div>
                     </div>
                     <!-- Champ pour le ratio de femmes/hommes dans la startup-->
@@ -320,6 +327,13 @@ if(isset($_SESSION['user']))
                             <input type="text" class="form-control" value="'.$startup_data['description'].'" name="description" id="description" pattern="[A-Za-z0-9[\(-\+éöïçàäèüãáñâôé,()\.@#\+&=!$£?\'\/<>:;^`~\|*_\] ]{2,500}" title="Letters and Numbers are accepted. Minimum 2 characters and maximum 500. The special characters accepted are : &quot; (-+éöïçàäèüãáñâôé,().@#+&=!$£?\'/<>:;^`~|*_ &quot;">
                         </div>
                     </div>
+                    <!-- Champ pour un commentaire de la startup-->
+                    <div class="form-group row">
+                        <label for="comments" class="col-sm-4 col-form-label">Comments</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" value="'.$startup_data['comments'].'" name="comments" id="comments" pattern="[A-Za-z0-9[\(-\+éöïçàäèüãáñâôé,()\.@#\+&=!$£?\'\/<>:;^`~\|*_\] ]{2,500}" title="Letters and Numbers are accepted. Minimum 2 characters and maximum 500. The special characters accepted are : &quot; (-+éöïçàäèüãáñâôé,().@#+&=!$£?\'/<>:;^`~|*_ &quot;">
+                        </div>
+                    </div>
                     <div class ="form-group row col-12">
                         <button class="btn btn-outline-secondary mt-5 mr-5" id="submit_changes_company" onclick="after_click()" name="submit_changes_company" type="submit">Change</button>
                         <button class="btn btn-outline-secondary mt-5 mx-auto" id="submit_delete_company" onclick="company_delete()" name="submit_delete_company" type="button">DELETE</button>
@@ -352,7 +366,7 @@ if(isset($_SESSION['user']))
                 Variable filename est le nom du fichier nécessaire pour traiter les 2 variables mencionnées avant
                 
                 Ces variables sont utilisées sur le fichier "functions_changes.php" */
-                var arr = ["company_name", "founding_year", "web", "rc", "status", "exit_year", "time_to_exit", "type", "capital", "innogrant", "prix_pre_seed", "impact", "sector", "key_words", "ba_ma_phd_epfl", "founders_origin", "founders_country", "name", "firstname", "function1", "email", "email1", "linkedin", "name2","firstname2", "function2", "gender_female_ratio", "gender_female_number","fac_dpt", "laboratory", "prof","investment_2020", "investor_2020", "description"];
+                var arr = ["company_name", "founding_year", "web", "rc", "status", "exit_year", "time_to_exit", "type", "capital", "investor_platform", "epfl_grant", "prix_hors_epfl", "impact", "sector", "key_words", "ba_ma_phd_epfl", "founders_origin", "founders_country", "name", "firstname", "function1", "email1", "email2", "name2","firstname2", "function2", "prof_as_founder", "gender_female_ratio", "gender_female_number","fac_dpt", "laboratory", "prof","investment_2020", "investor_2020", "description", "comments"];
                 var get = "'.security_text($_GET['id']).'";
                 var filename = "company_information_modification_db.php";
                 ';

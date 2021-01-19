@@ -76,15 +76,15 @@ if(isset($_SESSION['user']))
                         
                         //"Ouvrir" le fichier qui aura le résultat après traitement du fichier importé, en lui mettant des droits d'écriture seulement 
                         $output= fopen('csv_imported/startups_modified_good_order.csv', 'a+');
-                        
+
                         //Lire le fichier importé
-                        while(($data = fgetcsv($input, 5000, ",")) !== FALSE)
+                        while(($data = fgetcsv($input, 10000, ",")) !== FALSE)
                         {
                             //Changer l'ordre du fichier importé, en mettant les foreign keys à la fin (dans la base de données, les fks sont à la fin)
-                            $order = array(0,1,2,3,5,6,8,9,10,11,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,4,7,12);
+                            $order = array(0,1,2,3,5,6,8,9,10,11,12,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,4,7,13);
                             
                             //Lire le fichier importé
-                            while (($csv = fgetcsv($input, 5000, ",")) !== FALSE) 
+                            while (($csv = fgetcsv($input, 10000, ",")) !== FALSE) 
                             {
                                 //Faire un nouveau tableau avec les données changés pour y mettre les id's des foreign keys
                                 $new = array();
@@ -95,7 +95,7 @@ if(isset($_SESSION['user']))
                                     $new[] = $csv[$index];                                    
 
                                     //Conditions pour aller chercher les ids si un statut correspond à ceux qui sont dans la base de données
-                                    if ($csv[4] == "Private" || $csv[4] == "Stopped" || $csv[4] == "M&A" || $csv[4] == "Sarl" || $csv[4] == "Public" || $csv[4] == "Private & M&A") 
+                                    if ($csv[4] == "Private" || $csv[4] == "Stopped" ||$csv[4]== "Private & M&A (2 sociétés)" || $csv[4] == "M&A" || $csv[4] == "Sarl" || $csv[4] == "Public" || $csv[4] == "Private & M&A") 
                                     {
                                         //Remplacer le nom du statut par l'id du statut qui est dans la base de données
                                         $ids_change_status = $db -> query('SELECT id_status FROM status WHERE status = "'.$csv[4].'"');
@@ -104,7 +104,7 @@ if(isset($_SESSION['user']))
                                     }
 
                                     //Conditions pour aller chercher les ids si un type correspond à ceux qui sont dans la base de données
-                                    if ($csv[7] == "SA" || $csv[7] == "Sarl" || $csv[7] == "SAS" || $csv[7] == "LLC USA" || $csv[7] == "LLC" || $csv[7] == "Inc." || $csv[7] == "Snc / Sarl" || $csv[7] == "Individuelle" || $csv[7] == "Assoc & Sarl" || $csv[7] == "Fondation" || $csv[7] == "d.o.o" || $csv[7] == "AG" || $csv[7] == "Ltd" || $csv[7] == "China" || $csv[7] == "Corp" || $csv[7] == "SNC" || $csv[7] == "GmbH" || $csv[7] == "Soc. nom indiv." || $csv[7] == "Association")
+                                    if ($csv[7] == "SA" || $csv[7] == "Sarl" || $csv[7] == "SAS" || $csv[7] == "LLC USA" || $csv[7] == "LLC" || $csv[7] == "Inc." || $csv[7] == "Inc" || $csv[7] == "Snc / Sarl" || $csv[7] == "Individuelle" || $csv[7] == "Assoc & Sarl" || $csv[7] == "Fondation" || $csv[7] == "d.o.o" || $csv[7] == "AG" || $csv[7] == "Ltd" || $csv[7] == "China" || $csv[7] == "Corp" || $csv[7] == "SNC" || $csv[7] == "GmbH" || $csv[7] == "Soc. nom indiv." || $csv[7] == "Association" || $csv[7] == "Ltd (UK) en 1999" || $csv[7] == "Sàrl" || $csv[7] == "Entreprise individuelle")
                                     {
                                         //Remplacer le nom du type par l'id du type qui est dans la base de données
                                         $ids_change_type = $db -> query('SELECT id_type FROM type WHERE type = "'.$csv[7].'"');
@@ -113,40 +113,44 @@ if(isset($_SESSION['user']))
                                     }
 
                                     //Conditions pour aller chercher les ids si un secteur correspond à ceux qui sont dans la base de données
-                                    if ($csv[12] == "Biotech" || $csv[12] == "Medtech" || $csv[12] == "ICT" || $csv[12] == "Engineering" || $csv[12] == "Fintech" || $csv[12] == "Cleantech" || $csv[12] == "Mechanical") 
+                                    if ($csv[13] == "Biotech" || $csv[13] == "Medtech" || $csv[13] == "ICT" || $csv[13] == "Engineering" || $csv[13] == "Fintech" || $csv[13] == "Cleantech" || $csv[13] == "Mechanical" || $csv[13] == "Architecture") 
                                     {
                                         //Remplacer le nom du secteur par l'id du secteur qui est dans la base de données
-                                        $ids_change_sectors = $db -> query('SELECT id_sectors FROM sectors WHERE sectors = "'.$csv[12].'"');
+                                        $ids_change_sectors = $db -> query('SELECT id_sectors FROM sectors WHERE sectors = "'.$csv[13].'"');
                                         $id_change_sectors = $ids_change_sectors->fetch();
-                                        $csv[12] = $id_change_sectors['id_sectors'];
+                                        $csv[13] = $id_change_sectors['id_sectors'];
                                     }
-
+                                    
                                     //Donner l'id de "None" si dans le fichier importé, le champ statut, type ou secteur est vide
-                                    if($csv[12] == null || $csv[12] == '') 
+                                    if($csv[13] == null || $csv[13] == '' || $csv[13] == "") 
                                     {
-                                        $csv[12] = 7;
+                                        $csv[13] = 7;
                                     }
-                                    if($csv[7] == null || $csv[7] == '')
+                                    if($csv[7] == null || $csv[7] == '' || $csv[7] == "")
                                     {
                                         $csv[7] = 20;
                                     }
-                                    if($csv[4] == null || $csv[4] == '')
+                                    if($csv[4] == null || $csv[4] == '' || $csv[4] == "")
                                     {
                                         $csv[4] = 7;
                                     }
+
+                                    $text = array($csv[0],$csv[1],$csv[2],$csv[3],$csv[5],$csv[6],$csv[8],$csv[9],$csv[10],$csv[11],$csv[12],$csv[14],$csv[15],$csv[16],$csv[17],$csv[18],$csv[19],$csv[20],$csv[21],$csv[22],$csv[23],$csv[24],$csv[25],$csv[26],$csv[27],$csv[28],$csv[29],$csv[30],$csv[31],$csv[32],$csv[33],$csv[34],$csv[35],$csv[4],$csv[7],$csv[13]);
+                                    $output_replaced = str_replace('"', '\'', $text);
+                                    
                                 }
 
                                 //Mettre les changements dans le fichier output
-                                fputcsv($output, $new);
+                                fputcsv($output, $output_replaced);
 
                                 //Chercher les startups qui sont déjà dans la base de données
-                                $set_only_non_existants = $db->query('SELECT company FROM startup_test WHERE company = "'.$csv[0].'"');
+                                $set_only_non_existants = $db->query('SELECT company FROM startup WHERE company = "'.$csv[0].'"');
                                 $set_only_non_existant = $set_only_non_existants->fetchAll();
                                 foreach($set_only_non_existant as $only_non_existant)
                                 {
                                     //Supprimer du fichier créé ci-dessous les startups qui sont déjà dans la base de données
                                     $rows = file("csv_imported/startups_modified_good_order.csv");
-                                    
+
                                     $blacklist = $only_non_existant['company'];
 
                                     foreach($rows as $key => $row) 
@@ -156,8 +160,7 @@ if(isset($_SESSION['user']))
                                             unset($rows[$key]); 
                                         }
                                     }
-
-                                    file_put_contents("csv_imported/startups_modified_good_order.csv", $rows);   
+                                    file_put_contents("csv_imported/startups_modified_good_order.csv", $rows);  
                                 }
                             }
                         }
@@ -166,10 +169,11 @@ if(isset($_SESSION['user']))
                         $file_output = fopen("csv_imported/startups_modified_good_order.csv","r");
 
                         while (($data_import_db = fgetcsv($file_output, 20000, ",")) !== FALSE) 
-                        {   
+                        { 
                             //Ecrire dans la base de données, les données du fichier
-                            $import_data_to_db = $db -> prepare('INSERT INTO startup_test(company,founding_year,web,rc,exit_year,time_to_exit,capital,innogrant,prix_pre_seed,impact,key_words,ba_ma_phd_epfl,founders_origin,founders_country,name,firstname,function,email,email1,linkedin,name2,firstname2,function2,gender_female_ratio,gender_female_number,fac_dpt,laboratory,prof,investment_2020,investor_2020,description,fk_status,fk_type,fk_sectors) VALUES ("'.$data_import_db[0].'","'.$data_import_db[1].'","'.$data_import_db[2].'","'.$data_import_db[3].'","'.$data_import_db[4].'","'.$data_import_db[5].'","'.$data_import_db[6].'","'.$data_import_db[7].'","'.$data_import_db[8].'","'.$data_import_db[9].'","'.$data_import_db[10].'","'.$data_import_db[11].'","'.$data_import_db[12].'","'.$data_import_db[13].'","'.$data_import_db[14].'","'.$data_import_db[15].'","'.$data_import_db[16].'","'.$data_import_db[17].'","'.$data_import_db[18].'","'.$data_import_db[19].'","'.$data_import_db[20].'","'.$data_import_db[21].'","'.$data_import_db[22].'","'.$data_import_db[23].'","'.$data_import_db[24].'","'.$data_import_db[25].'","'.$data_import_db[26].'","'.$data_import_db[27].'","'.$data_import_db[28].'","'.$data_import_db[29].'", "'.$data_import_db[30].'", "'.$data_import_db[31].'","'.$data_import_db[32].'","'.$data_import_db[33].'")');
+                            $import_data_to_db = $db -> prepare('INSERT INTO startup(company,founding_year,web,rc,exit_year,time_to_exit,capital,investor_platform,epfl_grant,prix_hors_epfl,impact,key_words,ba_ma_phd_epfl,founders_origin,founders_country,name,firstname,function,email1,email2,name2,firstname2,function2,prof_as_founder,gender_female_ratio,gender_female_number,fac_dpt,laboratory,prof,investment_2020,investor_2020,description,comments,fk_status,fk_type,fk_sectors) VALUES ("'.$data_import_db[0].'","'.$data_import_db[1].'","'.$data_import_db[2].'","'.$data_import_db[3].'","'.$data_import_db[4].'","'.$data_import_db[5].'","'.$data_import_db[6].'","'.$data_import_db[7].'","'.$data_import_db[8].'","'.$data_import_db[9].'","'.$data_import_db[10].'","'.$data_import_db[11].'","'.$data_import_db[12].'","'.$data_import_db[13].'","'.$data_import_db[14].'","'.$data_import_db[15].'","'.$data_import_db[16].'","'.$data_import_db[17].'","'.$data_import_db[18].'","'.$data_import_db[19].'","'.$data_import_db[20].'","'.$data_import_db[21].'","'.$data_import_db[22].'","'.$data_import_db[23].'","'.$data_import_db[24].'","'.$data_import_db[25].'","'.$data_import_db[26].'","'.$data_import_db[27].'","'.$data_import_db[28].'","'.$data_import_db[29].'", "'.$data_import_db[30].'", "'.$data_import_db[31].'","'.$data_import_db[32].'","'.$data_import_db[33].'", "'.$data_import_db[34].'", "'.$data_import_db[35].'")');
                             $import_data_to_db -> execute();
+
                         }
                         
                         //"Fermer" les fichiers ouverts au-dessus

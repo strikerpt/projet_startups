@@ -95,18 +95,25 @@ if(isset($_SESSION['user']))
                     <input type="text" class="form-control" name="capital" id="capital" pattern="[A-Za-z0-9 ]{1,30}" title="Minimum 1 character and maximum 30 characters.">
                     </div>
                 </div>
-                <!-- Champ pour l\'innogrant de la startup -->
+                <!-- Champ pour l\'investor platform de la startup -->
                 <div class="form-group row">
-                    <label for="innogrant" class="col-sm-4 col-form-label">Innogrant</label>
+                    <label for="investor_platform" class="col-sm-4 col-form-label">Investor Platform</label>
                     <div class="col-sm-6">
-                    <input type="text" class="form-control" name="innogrant" id="innogrant" pattern="[A-Za-z0-9[\(\-\+éöïçàäèüãáñâôé,()\.@#\+&=!$£?\'\/<>:;^`~\|*_\] ]{2,30}" title="Minimum 2 characters and maximum 30. Special characters allowed are &quot; (-+éöïçàäèüãáñâôé,().@#+&=!$£?\'/<>:;^`~|*_ &quot;">
+                    <input type="text" class="form-control" name="investor_platform" id="investor_platform" pattern="[A-Za-z0-9 ]{1,100}" title="Minimum 1 character and maximum 100 characters.">
                     </div>
                 </div>
-                <!-- Champ pour le prix pre seed de la startup -->
+                <!-- Champ pour l\'epfl grant de la startup -->
                 <div class="form-group row">
-                    <label for="prix_pre_seed" class="col-sm-4 col-form-label">Prix pre seed</label>
+                    <label for="epfl_grant" class="col-sm-4 col-form-label">EPFL Grant</label>
                     <div class="col-sm-6">
-                    <input type="text" class="form-control" name="prix_pre_seed" id="prix_pre_seed" pattern="[A-Za-z0-9[\(\-\+éöïçàäèüãáñâôé,()\.@#\+&=!$£?\'\/<>:;^`~\|*_\] ]{2,300}" title="Minimum 2 characters and maximum 300. Special characters allowed are &quot; (-+éöïçàäèüãáñâôé,().@#+&=!$£?\'/<>:;^`~|*_ &quot;">
+                    <input type="text" class="form-control" name="epfl_grant" id="epfl_grant" pattern="[A-Za-z0-9[\(\-\+éöïçàäèüãáñâôé,()\.@#\+&=!$£?\'\/<>:;^`~\|*_\] ]{2,100}" title="Minimum 2 characters and maximum 100. Special characters allowed are &quot; (-+éöïçàäèüãáñâôé,().@#+&=!$£?\'/<>:;^`~|*_ &quot;">
+                    </div>
+                </div>
+                <!-- Champ pour le prix hors epfl de la startup -->
+                <div class="form-group row">
+                    <label for="prix_hors_epfl" class="col-sm-4 col-form-label">Prix Hors EPFL</label>
+                    <div class="col-sm-6">
+                    <input type="text" class="form-control" name="prix_hors_epfl" id="prix_hors_epfl" pattern="[A-Za-z0-9[\(\-\+éöïçàäèüãáñâôé,()\.@#\+&=!$£?\'\/<>:;^`~\|*_\] ]{2,300}" title="Minimum 2 characters and maximum 300. Special characters allowed are &quot; (-+éöïçàäèüãáñâôé,().@#+&=!$£?\'/<>:;^`~|*_ &quot;">
                     </div>
                 </div>
                 <!-- Champ pour l\'impact de la startup -->
@@ -183,23 +190,16 @@ if(isset($_SESSION['user']))
                 </div>
                 <!-- Champ pour email-->
                 <div class="form-group row">
-                    <label for="email" class="col-sm-4 col-form-label">Email</label>
-                    <div class="col-sm-6">
-                    <input type="email" class="form-control" name="email" id="email" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}" title="Write an valid email address.">
-                    </div>
-                </div>
-                <!-- Champ pour un autre email-->
-                <div class="form-group row">
-                    <label for="email1" class="col-sm-4 col-form-label">Email1</label>
+                    <label for="email1" class="col-sm-4 col-form-label">Email 1</label>
                     <div class="col-sm-6">
                     <input type="email" class="form-control" name="email1" id="email1" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}" title="Write an valid email address.">
                     </div>
                 </div>
-                <!-- Champ pour le linkedin des fondateurs-->
+                <!-- Champ pour un autre email-->
                 <div class="form-group row">
-                    <label for="linkedin" class="col-sm-4 col-form-label">Linkedin</label>
+                    <label for="email2" class="col-sm-4 col-form-label">Email 2</label>
                     <div class="col-sm-6">
-                    <input type="text" class="form-control" name="linkedin" id="linkedin" pattern="((https://)|(http://)|(www)).*" title="Your url must begin by &quot;www&quot;,&quot;http://&quot; or &quot;https://&quot;.">
+                    <input type="email" class="form-control" name="email2" id="email2" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}" title="Write an valid email address.">
                     </div>
                 </div>
                 <!-- Champ pour le deuxième nom-->
@@ -221,6 +221,13 @@ if(isset($_SESSION['user']))
                     <label for="function2" class="col-sm-4 col-form-label">Function2</label>
                     <div class="col-sm-6">
                     <input type="text" class="form-control" name="function2" id="function2" pattern="[A-Za-z[\-\] ]{2,100}" title="Only letters allowed. Minimum 2 characters and maximum 100. Special characters allowed are &quot; - &quot;">
+                    </div>
+                </div>
+                <!-- Champ pour le professeur comme fondateur-->
+                <div class="form-group row">
+                    <label for="prof_as_founder" class="col-sm-4 col-form-label">Prof. as Founder</label>
+                    <div class="col-sm-6">
+                    <input type="text" class="form-control" name="prof_as_founder" id="prof_as_founder" pattern="[a-zA-Z[\.\] ]{2,100}" title="Only letters allowed. Minimum 2 characters and maximum 100. Special characters allowed are &quot; . &quot;">
                     </div>
                 </div>
                 <!-- Champ pour le ratio de femmes/hommes dans la startup-->
@@ -253,7 +260,7 @@ if(isset($_SESSION['user']))
                 </div>
                 <!-- Champ pour le nom du prof-->
                 <div class="form-group row">
-                    <label for="prof" class="col-sm-4 col-form-label">Prof</label>
+                    <label for="prof" class="col-sm-4 col-form-label">Prof.</label>
                     <div class="col-sm-6">
                     <input type="text" class="form-control" name="prof" id="prof" pattern="[a-zA-Z[\.\] ]{2,100}" title="Only letters allowed. Minimum 2 characters and maximum 100. Special characters allowed are &quot; . &quot;">
                     </div>
@@ -277,6 +284,13 @@ if(isset($_SESSION['user']))
                     <label for="description" class="col-sm-4 col-form-label">Short description</label>
                     <div class="col-sm-6">
                     <input type="text" class="form-control" name="description" id="description" pattern="[A-Za-z0-9[\(-\+éöïçàäèüãáñâôé,()\.@#\+&=!$£?\'\/<>:;^`~\|*_\] ]{2,500}" title="Letters and Numbers are accepted. Minimum 2 characters and maximum 500. The special characters accepted are : &quot; (-+éöïçàäèüãáñâôé,().@#+&=!$£?\'/<>:;^`~|*_ &quot;">
+                    </div>
+                </div>
+                <!-- Champ pour une commentaire de la startup-->
+                <div class="form-group row">
+                    <label for="comments" class="col-sm-4 col-form-label">Comments</label>
+                    <div class="col-sm-6">
+                    <input type="text" class="form-control" name="comments" id="comments" pattern="[A-Za-z0-9[\(-\+éöïçàäèüãáñâôé,()\.@#\+&=!$£?\'\/<>:;^`~\|*_\] ]{2,500}" title="Letters and Numbers are accepted. Minimum 2 characters and maximum 500. The special characters accepted are : &quot; (-+éöïçàäèüãáñâôé,().@#+&=!$£?\'/<>:;^`~|*_ &quot;">
                     </div>
                 </div>
                 <button class="btn btn-outline-secondary mt-5" id="submit_new_company" name="submit_new_company" type="submit">Submit</button>
@@ -314,13 +328,16 @@ if(isset($_SESSION['user']))
                 var time_to_exit_after_check = document.getElementById("time_to_exit").value; 
                 
                 //Récuperer la valeur du champs avec l\'id capital
-                var capital_after_check = document.getElementById("capital").value;   
+                var capital_after_check = document.getElementById("capital").value;
                 
-                //Récuperer la valeur du champs avec l\'id innogrant
-                var innogrant_after_check = document.getElementById("innogrant").value;  
+                //Récuperer la valeur du champs avec l\'id investor platform
+                var investor_platform_after_check = document.getElementById("investor_platform").value;
                 
-                //Récuperer la valeur du champs avec l\'id prix_pre_seed
-                var prix_pre_seed_after_check = document.getElementById("prix_pre_seed").value;  
+                //Récuperer la valeur du champs avec l\'id epfl grant
+                var epfl_grant_after_check = document.getElementById("epfl_grant").value;  
+                
+                //Récuperer la valeur du champs avec l\'id prix hors epfl
+                var prix_hors_epfl_after_check = document.getElementById("prix_hors_epfl").value;  
                 
                 //Récuperer la valeur du champs avec l\'id impact
                 var impact_after_check = document.getElementById("impact").value; 
@@ -346,15 +363,12 @@ if(isset($_SESSION['user']))
                 //Récuperer la valeur du champs avec l\'id function1
                 var function1_after_check = document.getElementById("function1").value;
                 
-                //Récuperer la valeur du champs avec l\'id email
-                var email_after_check = document.getElementById("email").value;
-                
                 //Récuperer la valeur du champs avec l\'id email1
-                var email1_after_check = document.getElementById("email1").value;  
+                var email1_after_check = document.getElementById("email1").value;
                 
-                //Récuperer la valeur du champs avec l\'id linkedin
-                var linkedin_after_check = document.getElementById("linkedin").value;  
-                
+                //Récuperer la valeur du champs avec l\'id email2
+                var email2_after_check = document.getElementById("email2").value;  
+                  
                 //Récuperer la valeur du champs avec l\'id name2
                 var name2_after_check = document.getElementById("name2").value;  
                 
@@ -362,7 +376,10 @@ if(isset($_SESSION['user']))
                 var firstname2_after_check = document.getElementById("firstname2").value;
                 
                 //Récuperer la valeur du champs avec l\'id function2
-                var function2_after_check = document.getElementById("function2").value;  
+                var function2_after_check = document.getElementById("function2").value;
+
+                //Récuperer la valeur du champs avec l\'id prof as founder
+                var prof_as_founder_after_check = document.getElementById("prof_as_founder").value;  
                 
                 //Récuperer la valeur du champs avec l\'id gender_female_ratio
                 var gender_female_ratio_after_check = document.getElementById("gender_female_ratio").value;  
@@ -386,7 +403,10 @@ if(isset($_SESSION['user']))
                 var investor_2020_after_check = document.getElementById("investor_2020").value;  
                 
                 //Récuperer la valeur du champs avec l\'id description
-                var description_after_check = document.getElementById("description").value;  
+                var description_after_check = document.getElementById("description").value; 
+                
+                //Récuperer la valeur du champs avec l\'id commentaires
+                var comments_after_check = document.getElementById("comments").value; 
                 
                 //Si les regex ont été respectées, alors il démarre l\'écriture des données dans la base de données
                 
@@ -423,8 +443,9 @@ if(isset($_SESSION['user']))
                                 time_to_exit : time_to_exit_after_check,
                                 type : type,
                                 capital : capital_after_check,
-                                innogrant : innogrant_after_check,
-                                prix_pre_seed : prix_pre_seed_after_check,
+                                investor_platform : investor_platform_after_check,
+                                epfl_grant : epfl_grant_after_check,
+                                prix_hors_epfl : prix_hors_epfl_after_check,
                                 impact : impact_after_check,
                                 sector : sector,
                                 key_words : key_words_after_check,
@@ -434,12 +455,12 @@ if(isset($_SESSION['user']))
                                 name : name_after_check,
                                 firstname : firstname_after_check,
                                 function1 : function1_after_check,
-                                email : email_after_check,
                                 email1 : email1_after_check,
-                                linkedin : linkedin_after_check,
+                                email2 : email2_after_check,
                                 name2 : name2_after_check,
                                 firstname2 : firstname2_after_check,
                                 function2 : function2_after_check,
+                                prof_as_founder : prof_as_founder_after_check,
                                 gender_female_ratio : gender_female_ratio_after_check,
                                 gender_female_number : gender_female_number_after_check,
                                 fac_dpt : fac_dpt_after_check,
@@ -448,6 +469,7 @@ if(isset($_SESSION['user']))
                                 investment_2020 : investment_2020_after_check,
                                 investor_2020 : investor_2020_after_check,
                                 description : description_after_check,
+                                comments : comments_after_check,
                             },
                             success:function(data)
                             {

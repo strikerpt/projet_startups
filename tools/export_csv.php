@@ -21,7 +21,7 @@ $startup->execute();
 ob_end_clean();
 
 //Mettre l'en-tête dans le fichier csv
-$header_csv = array("company", "founding_year","web","rc","status","exit_year","time_to_exit","type","capital","innogrant","prix_pre_seed","impact","sectors","key_words","ba_ma_phd_epfl","founders_origin","founders_country","name","firstname","function","email","email1","linkedin","name2","firstname2","function2","gender_female_ratio","gender_female_number","fac_dpt","laboratory","prof","investment_2020","investor_2020","description");
+$header_csv = array("company", "founding_year","web","rc","status","exit_year","time_to_exit","type","capital","investor_platform","epfl_grant","prix_hors_epfl","impact","sectors","key_words","ba_ma_phd_epfl","founders_origin","founders_country","name","firstname","function","email1","email2","name2","firstname2","function2","prof_as_founder","gender_female_ratio","gender_female_number","fac_dpt","laboratory","prof","investment_2020","investor_2020","description","comments");
 fputcsv($file, $header_csv);
 
 //Mettre les données dans le fichier csv
@@ -38,7 +38,7 @@ while ($row = $startup->fetch(PDO::FETCH_NAMED))
     $sectors = $fk_sectors->fetch();
 
     //Mettre le contenu de la base de données dans un array pour ensuite le mettre dans le fichier de téléchargement
-    $text = array($row['company'], $row['founding_year'], $row['web'], $row['rc'], $status['status'], $row['exit_year'], $row['time_to_exit'], $type['type'], $row['capital'], $row['innogrant'], $row['prix_pre_seed'], $row['impact'], $sectors['sectors'], $row['key_words'], $row['ba_ma_phd_epfl'], $row['founders_origin'], $row['founders_country'], $row['name'], $row['firstname'], $row['function'], $row['email'], $row['email1'], $row['linkedin'], $row['name2'], $row['firstname2'], $row['function2'], $row['gender_female_ratio'], $row['gender_female_number'], $row['fac_dpt'], $row['laboratory'], $row['prof'], $row['investment_2020'],$row['investor_2020'], $row['description']);
+    $text = array($row['company'], $row['founding_year'], $row['web'], $row['rc'], $status['status'], $row['exit_year'], $row['time_to_exit'], $type['type'], $row['capital'], $row['investor_platform'], $row['epfl_grant'], $row['prix_hors_epfl'], $row['impact'], $sectors['sectors'], $row['key_words'], $row['ba_ma_phd_epfl'], $row['founders_origin'], $row['founders_country'], $row['name'], $row['firstname'], $row['function'], $row['email1'], $row['email2'], $row['name2'], $row['firstname2'], $row['function2'], $row['prof_as_founder'], $row['gender_female_ratio'], $row['gender_female_number'], $row['fac_dpt'], $row['laboratory'], $row['prof'], $row['investment_2020'],$row['investor_2020'], $row['description'], $row['comments']);
     $text_replace = str_replace('"', '', $text);
     fputcsv($file,$text_replace,",");
 
