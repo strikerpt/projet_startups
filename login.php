@@ -12,7 +12,7 @@ $oClient->SetWantedAttributes(array('uniqueid','name','firstname','unit', 'uniti
 $oClient->SetWishedAttributes(array('email', 'title'));
 
 //URL de redirection quand le login est bien fait
-//$oClient->SetApplicationURL('https://itsidevfsd0008.xaas.epfl.ch/');
+//$oClient->SetApplicationURL('/');
 
 //Utilisateurs doivent être dans EPFL et être dans le groupe startups_read ou startups_write (permet de gérer les droits suivant l'utilsateur)
 $oClient->SetCustomFilter('org=EPFL&group=startups_read|group=startups_write');
@@ -30,11 +30,12 @@ $group  = $oClient->getValue('group');
 $word = "startups_write";
 if(strpos($group, $word) !== false)
 {
+    
     //Initialiser une variable session pour les utilisateurs read
     $_SESSION['TequilaPHPWrite'] = "TequilaPHPWritetrue";
     
     //Redirection vers la page d'acceuil pour finalisé la connexion à Tequila
-    header('Location: https://itsidevfsd0008.xaas.epfl.ch/');	 
+    header('Location: index.php');	 
 }
 else
 {
@@ -42,7 +43,7 @@ else
     $_SESSION['TequilaPHPRead'] = "TequilaPHPReadtrue";
     
     //Redirection vers la page d'acceuil pour finalisé la connexion à Tequila
-    header('Location: https://itsidevfsd0008.xaas.epfl.ch/');
+    header('Location: index.php');
 }
 
 ?>

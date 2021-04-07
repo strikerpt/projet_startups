@@ -192,7 +192,7 @@ if(isset($_SESSION['user']))
                                 var id_startup = data[0].id_startup;
                                 
                                 //Mettre l'id comme paramètre dans l'url
-                                window.location.replace('https://itsidevfsd0008.xaas.epfl.ch/company_information_modification.php?id='+id_startup);
+                                window.location.replace('company_information_modification.php?id='+id_startup);
                             },
                             error:function()
                             {
@@ -207,7 +207,7 @@ if(isset($_SESSION['user']))
             //Partie pour télécharger les données du tableau en format CSV
             $('.csv-button').on('click', function () 
             {
-                window.location.replace('https://itsidevfsd0008.xaas.epfl.ch:8080/tools/export_csv.php');
+                window.location.replace('tools/export_csv.php');
             });
 
             //Dessiner les champs et faire appel aux fonctions des filtres
@@ -236,7 +236,7 @@ else
 {
     echo "
     <script>
-        window.location.replace('https://itsidevfsd0008.xaas.epfl.ch/login.php');
+        window.location.replace('login.php');
     </script>
     ";
 }

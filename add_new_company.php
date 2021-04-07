@@ -474,7 +474,7 @@ if(isset($_SESSION['user']))
                             success:function(data)
                             {
                                 alert("You have added a new startup");
-                                window.location.replace("https://itsidevfsd0008.xaas.epfl.ch/add_new_company.php");
+                                window.location.replace("add_new_company.php");
                             },
                             error:function()
                             {
@@ -494,7 +494,7 @@ if(isset($_SESSION['user']))
         echo "
         <script>
             alert('You don\'t have enough rights to access this page.');
-            window.location.replace('https://itsidevfsd0008.xaas.epfl.ch/');
+            window.location.replace('index.php');
         </script>";
     }
     
@@ -503,7 +503,7 @@ else
 {
     echo "
     <script>
-        window.location.replace('https://itsidevfsd0008.xaas.epfl.ch/login.php');
+        window.location.replace('login.php');
     </script>
     ";
 }

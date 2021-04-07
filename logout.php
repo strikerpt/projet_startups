@@ -24,7 +24,7 @@ session_destroy();
 //Logout de tequila
 require_once ("tools/tequila.php");
 $oClient = new TequilaClient();
-$oClient-> Logout ($redirectUrl ="https://itsidevfsd0008.xaas.epfl.ch/");
+$oClient-> Logout ($redirectUrl=$_SERVER['HTTP_REFERER']);
 
 
 
